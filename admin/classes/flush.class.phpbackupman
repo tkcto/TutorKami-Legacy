@@ -1,0 +1,34 @@
+<?php 
+/**
+ * Session Management
+ * @author : Subhadeep Chowdhury
+ */
+class Session {
+	
+	function __construct() {
+		if(!isset($_SESSION)){
+		    session_start();
+		}
+        
+	}
+
+    public static function SetFlushMsg($type = '', $msg = ''){
+		// $msgVal = ($type == 'success') ? 'alert-success' : 'alert-error';
+        // $_SESSION['flash_msg']['msg_type'] = $msgVal;
+		$_SESSION['flash_msg']['msg_type'] = $type;
+		$_SESSION['flash_msg']['msg_text'] = $msg;		
+	}
+
+    public static function ReadFlushMsg() {
+        if( isset($_SESSION['flash_msg']) && $_SESSION['flash_msg'] != '' ){
+        	$message = $_SESSION['flash_msg'];
+            $_SESSION['flash_msg'] = ''; 
+            unset($_SESSION['flash_msg']);
+            return $message;
+        } else {
+        	return "still set";
+        }
+    }
+    
+}
+

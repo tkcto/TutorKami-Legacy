@@ -1,0 +1,153 @@
+/*
+Theme Name:Tutor Blog
+Theme URI: https://wordpress.org/themes/twentysixteen/
+Author: the WordPress team
+Author URI: https://wordpress.org/
+Description: Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere.
+Version: 1.3
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: one-column, two-columns, right-sidebar, accessibility-ready, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, flexible-header, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready, blog
+Text Domain: twentysixteen
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+
+/**
+ * Table of Contents
+ *
+ * 1.0 - Normalize
+ * 2.0 - Genericons
+ * 3.0 - Typography
+ * 4.0 - Elements
+ * 5.0 - Forms
+ * 6.0 - Navigation
+ *   6.1 - Links
+ *   6.2 - Menus
+ * 7.0 - Accessibility
+ * 8.0 - Alignments
+ * 9.0 - Clearings
+ * 10.0 - Widgets
+ * 11.0 - Content
+ *    11.1 - Header
+ *    11.2 - Posts and pages
+ *    11.3 - Post Formats
+ *    11.4 - Comments
+ *    11.5 - Sidebar
+ *    11.6 - Footer
+ * 12.0 - Media
+ *    12.1 - Captions
+ *    12.2 - Galleries
+ * 13.0 - Multisite
+ * 14.0 - Media Queries
+ *    14.1 - >= 710px
+ *    14.2 - >= 783px
+ *    14.3 - >= 910px
+ *    14.4 - >= 985px
+ *    14.5 - >= 1200px
+ * 15.0 - Print
+ */
+
+
+/**
+ * 1.0 - Normalize
+ *
+ * Normalizing styles have been helped along thanks to the fine work of
+ * Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
+ */
+.mashsb-box .mashsb-buttons a {
+	padding: 16px;
+    margin-right: 35px;
+    float: left;
+    width: 175px;
+    display: inline-table;
+}
+.mashsb-buttons {
+    
+    display: inline-table;
+    margin-left: 17px;
+}
+.mashsb-count {
+	    float: left;
+    display: none;
+}
+
+.mashsb-box {
+	width:440px;
+}
+.mashsb-container {
+	width: 450px;
+    display: inline-table;
+    float: left;
+}
+.omb_socialButtons{
+	width: 200px;
+    float: left;
+    display: inline-flex;
+}
+.omb_socialButtons a {
+	margin: 10px auto 40px auto;
+}
+#recent img{
+	width: 100px;
+	
+}
+.taps a {
+    background-color: #f1592a;
+    color: #fff;
+    padding: 6px;
+    border-radius: 0px;
+    display: inline-block;
+    margin-bottom: 6px;
+    text-decoration: none;
+}
+.taps {
+	margin-top: 10px;
+}
+.whatsapp-button{
+    padding: 15px 30px 15px 60px;
+    border-radius: 0px;
+    background-position: 18px;
+    font-size: 14px;
+}
+.share-to-whatsapp-wrapper{
+        padding-top: 10px;
+}
+
+.mytab.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+
+.mytab.nav-tabs, .nav-pills {
+    text-align:center;
+}
+.comments-title{
+    font-size: 24px;
+}
+.comment-body{
+    font-size: 16px;
+}
+.comment-reply-title{
+    font-size: 24px;
+}
+.ft-search .search-form .input-group{
+    display: block;
+}
+/*29.06.2017*/
+.faicon .fa{ margin-left:15px;}
+.fb_comment li a { padding-left:72px; padding-right:70px;}
+.blog .nav-tabs>li>a {
+    margin-right: 0px; 
+    line-height: 1.466666; 
+
+    border: none; 
+    border-radius: 0px; 
+    font-size: 16px;
+    font-weight: 600;
+}
+

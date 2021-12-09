@@ -1,0 +1,6 @@
+SELECT * from tk_classes_record CR
+                    where exists (
+                      select 1
+                      from tk_classes_record
+                      where CR.cr_cl_id = '37' 
+                      having count(distinct cr_duration) > 1)

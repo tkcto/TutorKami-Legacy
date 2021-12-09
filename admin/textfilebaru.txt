@@ -1,0 +1,3 @@
+SELECT * FROM tk_user AS U
+                INNER JOIN tk_user_details AS UD ON U.u_id = UD.ud_u_id
+                WHERE U.u_id = '7466'

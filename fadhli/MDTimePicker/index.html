@@ -1,0 +1,45 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aaaa</title>
+
+
+<link href="http://tutorkami.com/fadhli/MDTimePicker/mdtimepicker.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<input type="text" id="timepicker"/>
+
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="http://tutorkami.com/fadhli/MDTimePicker/mdtimepicker.js"></script>
+<script>
+  $(document).ready(function(){
+$('#timepicker').mdtimepicker({
+
+  // format of the time value (data-time attribute)
+  timeFormat: 'hh:mm:ss.000', 
+
+  // format of the input value
+  format: 'h:mm tt',      
+
+  // theme of the timepicker
+  // 'red', 'purple', 'indigo', 'teal', 'green'
+  theme: 'teal',        
+
+  // determines if input is readonly
+  readOnly: true,       
+
+  // determines if display value has zero padding for hour value less than 10 (i.e. 05:30 PM); 24-hour format has padding by default
+  hourPadding: false     
+
+});
+  });
+</script>
+</body>
+</html>

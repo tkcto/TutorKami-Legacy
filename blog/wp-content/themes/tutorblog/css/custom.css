@@ -1,0 +1,38 @@
+.loaderBackground {
+	background-color: #000;
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+}
+.loaderpop {
+	background-color: #fff;
+    border: 2px solid black;
+    height: 10em;
+    left: 40%;
+    margin-left: -5em;
+    margin-top: -5em;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    width: 20em;
+    z-index: 1051;
+}
+.outer-wrap label {
+    width: 100%;
+}
+.outer-wrap {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #333;
+    display:none;
+}
+.send_link .form-control,
+.sign_up_fb .form-control,
+.sign_in .form-control {
+    padding: 0 12px;
+    height: 45px;
+}

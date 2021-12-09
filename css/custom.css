@@ -1,0 +1,134 @@
+.loaderBackground {
+	background-color: #000;
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050;
+}
+.loaderpop {
+	background-color: #fff;
+    border: 2px solid black;
+    height: 100px;
+    left: 50%;
+    margin-left: -125px;
+    margin-top: -5em;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    width: 250px;
+    z-index: 1051;
+}
+.loaderpop h4 {
+    margin: 10% auto;
+}
+
+.outer-wrap label {
+    width: 100%;
+}
+.outer-wrap {
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #333;
+    display:none;
+}
+.send_link .form-control,
+.sign_up_fb .form-control,
+.sign_in .form-control {
+    padding: 0 12px;
+    height: 45px;
+}
+.ui-autocomplete-loading+.input-group-addon i::before {
+    content: "\f110";
+}
+.ui-autocomplete-loading+.input-group-addon i {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+}
+.view-button:hover {
+    text-decoration: none;
+}
+/* Tutor Search */
+.search_tutor .col-md-9 {
+    padding: 10px 15px;
+}
+/* Modal */
+.fade-scale {
+  transform: scale(0);
+  opacity: 0;
+  -webkit-transition: all .25s linear;
+  -o-transition: all .25s linear;
+  transition: all .25s linear;
+}
+
+.fade-scale.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Class Modal */
+#tourGuideModal .modal-content {
+  border-radius: 0;
+  padding: 40px;
+}
+#tourGuideModal .modal-header {
+  border-bottom: 3px solid #dbdbdb;
+  padding-bottom: 0;
+}
+#tourGuideModal .modal-header .close {
+  color: #ff0200;
+  font-size: 26px;
+  font-weight: 900;
+  margin-right: -40px;
+  margin-top: -50px;
+  opacity: 1;
+}
+#tourGuideModal .modal-title {
+  color: #616161;
+  font-size: 28px;
+  font-weight: 600;
+}
+#tourGuideModal .note {
+  color: #626262;
+  font-weight: 300;
+}
+#tourGuideModal .buttons {
+  margin-top: 30px;
+}
+#tourGuideModal .buttons button {
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 150px;
+  padding: 8px 15px;
+  -moz-box-shadow:    1px 1px 2px 1px #ccc;
+  -webkit-box-shadow: 1px 1px 2px 1px #ccc;
+  box-shadow:         1px 1px 2px 1px #ccc;
+}
+#tourGuideModal .buttons button.save {
+  background: #7cc43e;
+}
+#tourGuideModal .buttons button.delete {
+  background: #fe0000;
+}
+#tourGuideModal .discard_popup {
+  margin-top: 40px;
+}
+#tourGuideModal .discard_popup label {
+  font-weight: 300;
+}
+#tourGuideModal .discard_popup #discard_popup {
+  margin: 4px 7px 0 0;
+  /* Increase-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+}
+.step_box {
+    z-index: 1050;
+}
+.clickable-row, .point {
+  cursor: pointer;
+}

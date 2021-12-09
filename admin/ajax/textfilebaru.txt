@@ -1,0 +1,4 @@
+SELECT * FROM tk_user AS U
+            INNER JOIN tk_user_details AS UD ON U.u_id = UD.ud_u_id
+            INNER JOIN tk_states AS ST ON UD.ud_state = ST.st_id
+            WHERE U.u_id = '7529'

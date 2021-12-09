@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Semantic-editable</title>
+    <link href="css/semantic.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<table id="example1" class="ui table">
+    <thead>
+    <tr>
+        <th name="name" data-notnull="true" data-validation="notnull">Name</th>
+        <th data-type="date" name="registrationDate">Registration Date</th>
+        <th>unmapping</th>
+        <th data-type="email" name="email" data-validation="notnull">E-mail address</th>
+        <th data-type="select" name="gender" data-validation="notnull" data-defaultvalue="" data-defaultlable="Gender" data-options='getGender'>Gender</th>
+        <th data-type="checkbox" name="plan" data-checked="Yes" data-unchecked="No">Premium Plan</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/semantic.min.js"></script>
+    <script src="js/semantic.editableRecord.js"></script>
+    <script src="js/example.js"></script>
+<script>
+    function getGender(){
+        return [{value:"f", text:"female"}, {value:"m", text:"male"}];
+    }
+</script>
+</body>
+</html>

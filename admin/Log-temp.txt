@@ -1,0 +1,5 @@
+15/04/2021 08:22:52 | DELETE ( Expenses -  ) | Mohd Nurfadhli
+ ### Date   : 25/04/21
+ ### Item   : aaitem2
+ ### Amount : 10.00
+ ### Note   : note2

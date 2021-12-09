@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /fadhli/
+Disallow: /blog/wp-admin/
+Disallow: /cdn/
+
+Sitemap: https://www.tutorkami.com/Sitemap-guru-tuisyen1.xml

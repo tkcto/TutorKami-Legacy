@@ -1,0 +1,112 @@
+.loaderBackground {
+   background-color: #fff;
+   height: 100%;
+   left: 0;
+   opacity: 0.6;
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 1050;
+}
+.loaderpop {
+   height: 100px;
+   left: 50%;
+   margin-left: -125px;
+   margin-top: -5em;
+   position: fixed;
+   text-align: center;
+   top: 50%;
+   width: 250px;
+   z-index: 1051;
+}
+.loaderpop h4 {
+   margin: 10% auto;
+}
+.dropbox {
+   width: 100%;
+   background-color: #e8e8e8;
+   padding: 3px 10px;
+   position: relative;
+   background-image: url(../images/arrow.png);
+   background-repeat: no-repeat;
+   background-position: center right 10px;
+   margin-left: -20px;
+   cursor: pointer;
+}
+.dropPop {
+   width: 100%;
+   background-color: #fff;
+   border: solid 1px #ccc;
+   display: none;
+   padding: 10px;
+   max-height: 200px;
+   overflow: auto;
+   overflow-x: hidden;
+   margin-left: -20px;
+}
+.dropPop a {
+   color: #262262;
+   text-decoration: underline;
+   margin-right: 20px;
+   font-weight: bold;
+   margin-bottom: 20px;
+   font-size: 14px;
+}
+.dropPop .row {
+   margin: 0 10px;
+}
+.for-non-tutors, .for-tutors {
+   display: none;
+}
+.whatsapp li {
+  display: inline-block;
+  margin-right: 5px;
+}
+.text-red {
+  color: #dd4b39 !important;
+}
+.text-yellow {
+  color: #f39c12 !important;
+}
+.text-aqua {
+  color: #00c0ef !important;
+}
+.text-blue {
+  color: #0073b7 !important;
+}
+.text-black {
+  color: #111111 !important;
+}
+.text-light-blue {
+  color: #3c8dbc !important;
+}
+.text-green {
+  color: #00a65a !important;
+}
+.text-gray {
+  color: #d2d6de !important;
+}
+.text-navy {
+  color: #001f3f !important;
+}
+.text-teal {
+  color: #39cccc !important;
+}
+.text-olive {
+  color: #3d9970 !important;
+}
+.text-lime {
+  color: #01ff70 !important;
+}
+.text-orange {
+  color: #ff851b !important;
+}
+.text-fuchsia {
+  color: #f012be !important;
+}
+.text-purple {
+  color: #605ca8 !important;
+}
+.text-maroon {
+  color: #d81b60 !important;
+}
