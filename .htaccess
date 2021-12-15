@@ -1,150 +1,132 @@
-RewriteEngine On
-Options +FollowSymLinks
-RewriteBase /
-#
-#ErrorDocument 503 /maintenance_off.html
-#<IfModule mod_rewrite.c>
-# RewriteEngine On
-# RewriteCond %{REQUEST_URI} !=/maintenance_off.html
-# RewriteCond %{REMOTE_ADDR} !=175.136.186.164
-# RewriteCond %{REMOTE_ADDR} !=58.71.199.170
-# RewriteCond %{REMOTE_ADDR} !=183.171.84.211
-# RewriteRule ^.*$ - [R=503,L]
-#</IfModule> 
-#
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)\.html$ $1.php?%{QUERY_STRING} [L]
-
-# Forcing to ssl
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} !^www\.tutorkami\.com$ [NC]
-RewriteRule ^(.*)$ https://www.tutorkami.com/$1 [L,R=301]
-# RewriteCond %{SERVER_PORT} 80 
-# RewriteRule ^(.*)$ https://tutorkami.com/$1 [R,L]
-
-# Ref Link
-# RewriteRule ^view/([0-9]+)/([0-9]+)/(dw_.*)/(m_.*)$ display.php?menuId=$1&prntId=$2&flag=$3&id=$4
-
-# Developer Menu - Not Included in final project
-RewriteRule ^test$ test.php
-
-# ErrorDocument 403 /admin/includes/403.php
-# ErrorDocument 404 /admin/includes/404.php
-# ErrorDocument 405 /admin/includes/405.php
-# ErrorDocument 503 /admin/includes/503.php
-#ErrorDocument 500 /admin/includes/500.php
-
-ErrorDocument 403 /page/403.php
-ErrorDocument 404 /page/404.php
-ErrorDocument 405 /page/405.php
-ErrorDocument 405 /page/408.php
-ErrorDocument 405 /page/500.php
-ErrorDocument 405 /page/502.php
-ErrorDocument 503 /page/504.php
-
-## API
-RewriteRule ^api/([A-Za-z0-9-]+) 	api/index.php?action=$1 [nc,qsa]
-
-## hide .php extension
-# To externally redirect /dir/file.php to /dir/file except for POST requests
-RewriteCond %{REQUEST_METHOD} !POST
-RewriteCond %{THE_REQUEST} /(.+?)\.php[\s?] [NC]
-RewriteRule ^ %1 [R=302,L,NE]
-
-# To internally forward /dir/file to /dir/file.php
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}\.php -f
-RewriteRule ^(.+?)/?$ $1.php [L]
-
-# remove trailing slash
-RewriteRule ^(.*)\/(\?.*)?$ $1$2 [R=301,L]
-
-# rewrite folder url to show content from root folder
-RewriteRule ^my(\/?)$ /index.php [QSA,NC,L]
-RewriteRule ^my/(.*)(\/?)$ /$1 [QSA,NC,L]
-
-# Redirect to a local site file
-Redirect 301 /en/register /register
-Redirect 301 /home_tuisyen /cikgu_tuisyen_di_rumah
-Redirect 301 /en/job-listings /search_job
-Redirect 301 /my/job-listings /my/search_job
-Redirect 301 /my/t/register-terms-and-conditions /my/terms_condition
-Redirect 301 /blog/tutor.php /tuition
-Redirect 301 /blog/about.php /tuition
-Redirect 301 /blog/login.php /tuition
-
-
-# Redirect 301 /my /index.php
-
-# https://www.tutorkami.com/search_tutor2?state=Johor&level=Pre-School&area=Bekok
-# http://localhost/htaccess-clean-urls/parameter_letter_and_number.php?param=post=143 TO http://localhost/htaccess-clean-urls/post
-
-
-# MAINTENANCE-PAGE REDIRECT
-# RewriteCond %{REMOTE_ADDR} !^175\.136\.186\.164
-# RewriteCond %{REQUEST_URI} !/maintenance_off.html$ [NC]
-# RewriteRule .* /maintenance_off.html [R=302,L]
-
-
-
-
-
-## url_shorten.php
- RewriteRule ^([a-z0-9]{10})$ index.php?redirect=$1 [L] 
-
-
-
-
-
-
-
-# Redirect with parameter
- RewriteCond %{QUERY_STRING} ^areastate=(.+?)$
- RewriteRule ^ /search_tutor2?state=%1 [R=301,L]
-
-# Redirect blog
-# RedirectMatch ^/blog/(.*)$ https://www.tutorkami.com/tuition/
-RedirectMatch ^/blog/bm/(.*)$ https://www.tutorkami.com/tuition/
-RedirectMatch ^/blog/popular/(.*)$ https://www.tutorkami.com/tuition/
-RedirectMatch ^/blog/tag/(.*)$ https://www.tutorkami.com/tuition/
-RedirectMatch ^/blog/category/(.*)$ https://www.tutorkami.com/tuition/
-RedirectMatch ^/blog/page/(.*)$ https://www.tutorkami.com/tuition/
- 
-<IfModule mod_expires.c>
-  ExpiresActive On
-  # Images
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType image/gif "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType image/x-icon "access plus 1 year"
-
-  # Video
-  ExpiresByType video/mp4 "access plus 1 year"
-  ExpiresByType video/mpeg "access plus 1 year"
-
-  # CSS, JavaScript
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType text/javascript "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
-
-  # Others
-  ExpiresByType application/pdf "access plus 1 month"
-  ExpiresByType application/x-shockwave-flash "access plus 1 month"
-</IfModule>
-
-# Disable ETags
-<IfModule mod_headers.c>
-	Header unset ETag
-</IfModule>
-FileETag None
-
-# compresses text, html, javascript, css, xml:
-AddOutputFilterByType DEFLATE text/plain
-AddOutputFilterByType DEFLATE text/html
-AddOutputFilterByType DEFLATE text/xml
-AddOutputFilterByType DEFLATE text/css
-AddOutputFilterByType DEFLATE application/xml
-AddOutputFilterByType DEFLATE application/javascript
+RewriteEngine On
+Options +FollowSymLinks
+RewriteBase /
+
+
+# Forcing ssl
+#RewriteCond %{HTTPS} off [OR]
+#RewriteCond %{HTTP_HOST} !^www\.tutorkami\.com$ [NC]
+#RewriteRule ^(.*)$ https://www.tutorkami.com/$1 [L,R=301]
+
+
+# Route html file to php file
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)\.html$ $1.php?%{QUERY_STRING} [L]
+
+
+# Route image to live server
+RewriteCond %{HTTP_HOST} ^tk\.io$ [NC]
+RewriteRule ^images/(.*)$ https://www.tutorkami.com/images/$1 [L,R]
+
+
+# Error document
+ErrorDocument 403 /page/403.php
+ErrorDocument 404 /page/404.php
+ErrorDocument 405 /page/405.php
+ErrorDocument 405 /page/408.php
+ErrorDocument 405 /page/500.php
+ErrorDocument 405 /page/502.php
+ErrorDocument 503 /page/504.php
+
+
+## API
+RewriteRule ^api/([A-Za-z0-9-]+) 	api/index.php?action=$1 [nc,qsa]
+
+
+## Hide .php extension
+## To externally redirect /dir/file.php to /dir/file except for POST requests
+RewriteCond %{REQUEST_METHOD} !POST
+RewriteCond %{THE_REQUEST} /(.+?)\.php[\s?] [NC]
+RewriteRule ^ %1 [R=302,L,NE]
+
+
+# To internally forward /dir/file to /dir/file.php
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}\.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+
+# Remove trailing slash
+RewriteRule ^(.*)\/(\?.*)?$ $1$2 [R=301,L]
+
+
+# Rewrite folder url to show content from root folder
+RewriteRule ^my(\/?)$ /index.php [QSA,NC,L]
+RewriteRule ^my/(.*)(\/?)$ /$1 [QSA,NC,L]
+
+
+# Redirect to a local site file
+Redirect 301 /en/register /register
+Redirect 301 /home_tuisyen /cikgu_tuisyen_di_rumah
+Redirect 301 /en/job-listings /search_job
+Redirect 301 /my/job-listings /my/search_job
+Redirect 301 /my/t/register-terms-and-conditions /my/terms_condition
+Redirect 301 /blog/tutor.php /tuition
+Redirect 301 /blog/about.php /tuition
+Redirect 301 /blog/login.php /tuition
+
+
+## url_shorten.php
+RewriteRule ^([a-z0-9]{10})$ index.php?redirect=$1 [L] 
+
+
+# Redirect with parameter
+RewriteCond %{QUERY_STRING} ^areastate=(.+?)$
+RewriteRule ^ /search_tutor2?state=%1 [R=301,L]
+
+
+# Redirect blog
+# RedirectMatch ^/blog/(.*)$ https://www.tutorkami.com/tuition/
+RedirectMatch ^/blog/bm/(.*)$ https://www.tutorkami.com/tuition/
+RedirectMatch ^/blog/popular/(.*)$ https://www.tutorkami.com/tuition/
+RedirectMatch ^/blog/tag/(.*)$ https://www.tutorkami.com/tuition/
+RedirectMatch ^/blog/category/(.*)$ https://www.tutorkami.com/tuition/
+RedirectMatch ^/blog/page/(.*)$ https://www.tutorkami.com/tuition/
+
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+
+  # Video
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/mpeg "access plus 1 year"
+
+
+  # CSS, JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+
+
+  # Others
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType application/x-shockwave-flash "access plus 1 month"
+</IfModule>
+
+
+# Disable ETags
+<IfModule mod_headers.c>
+	Header unset ETag
+</IfModule>
+
+
+FileETag None
+
+
+# Compresses text, html, javascript, css, xml:
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript

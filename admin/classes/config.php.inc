@@ -1,14 +1,14 @@
 <?php
 
-const DEVELOPMENT_HOST = array('tutorkami.io');
+const DEVELOPMENT_HOST = array('tk.io');
 
-# Database Credencials
+# Database Credentials
 if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1' || in_array($_SERVER['HTTP_HOST'], DEVELOPMENT_HOST)) {
 
-    define('HOSTNAME', '220.158.200.81');
-    define('DB_USER', 'tutorka1_live');
-    define('DB_PASS', '_+11pj,oow.L');
-    define('DBNAME', 'tutorka1_tutorkami_db');
+    define('HOSTNAME', 'mysql');
+    define('DB_USER', 'root');
+    define('DB_PASS', 'root');
+    define('DBNAME', 'tutorkami');
 
     # Data directory Root
     define('APP_ROOT', 'http://' . $_SERVER['SERVER_NAME'] . '/');
