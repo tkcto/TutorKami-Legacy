@@ -44,11 +44,11 @@ if (isset($_POST['dataGrid'])) {
                     ?>
 
                     <tr class="table-row" id="">
-                        <td onClick="editRow(this,'remove','bodyYear');" class="row-data" style="font-size:14px;width:120px;text-left: right;" contenteditable="true">
+                        <td class="row-data" style="font-size:14px;width:120px;text-left: right;">
                             <?PHP echo $row['month']; ?>
                         </td>
 
-                        <td onClick="editRow(this,'remove','bodyYear');" class="row-data" style="font-size:14px;width:100px;text-align: right;" contenteditable="true">
+                        <td class="row-data" style="font-size:14px;width:100px;text-align: right;">
 
                             <?php
                             $sqlSumRev = sprintf(

@@ -405,77 +405,83 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
         }
 
         function createExpenses() {
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0');
-            var yyyy = today.getFullYear().toString().substr(-2);
-            today = dd + '/' + mm + '/' + yyyy;
+            confirmExpensesData(function () {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear().toString().substr(-2);
+                today = dd + '/' + mm + '/' + yyyy;
 
-            var mainID = document.getElementById('mainID').value;
-            var btnTab = $(".btnTab.active").text();
-            var btnTabMonth = $(".btnTabMonth.active").text();
+                var mainID = document.getElementById('mainID').value;
+                var btnTab = $(".btnTab.active").text();
+                var btnTabMonth = $(".btnTabMonth.active").text();
 
-            $.ajax({
-                url: "sale-expenses-add.php",
-                type: "POST",
-                data: 'mainID=' + mainID + '&btnTabMonth=' + btnTabMonth + '&today=' + today,
-                success: function (data) {
-                    var trimData = data.trim();
-                    var numberOnly = trimData.replace(/^\D+/g, '');
-                    if (numberOnly != '') {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'sale-load-expenses.php',
-                            data: {
-                                dataGrid: {mainID: mainID, tab: btnTab, month: btnTabMonth},
-                            },
-                            success: function (result) {
-                                document.getElementById("loadSaleData").innerHTML = result;
-                                document.getElementById('bodyExpenses' + numberOnly).click();
-                            }
-                        });
-                    } else {
-                        alert(trimData);
+                $.ajax({
+                    url: "sale-expenses-add.php",
+                    type: "POST",
+                    dataType: 'json',
+                    data: 'mainID=' + mainID + '&btnTabMonth=' + btnTabMonth + '&today=' + today,
+                    success: function (data) {
+                        debugger;
+                        let numberOnly = data.insert_id;
+
+                        if (numberOnly !== null) {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'sale-load-expenses.php',
+                                data: {
+                                    dataGrid: {mainID: mainID, tab: btnTab, month: btnTabMonth},
+                                },
+                                success: function (result) {
+                                    document.getElementById("loadSaleData").innerHTML = result;
+                                    document.getElementById('bodyExpenses' + numberOnly).click();
+                                }
+                            });
+                        } else {
+                            alert(trimData);
+                        }
                     }
-                }
+                });
             });
         }
 
         function createDeposit() {
-            let today = new Date();
-            let dd = String(today.getDate()).padStart(2, '0');
-            let mm = String(today.getMonth() + 1).padStart(2, '0');
-            let yyyy = today.getFullYear().toString().substr(-2);
-            today = dd + '/' + mm + '/' + yyyy;
+            confirmDepositData(function () {
+                let today = new Date();
+                let dd = String(today.getDate()).padStart(2, '0');
+                let mm = String(today.getMonth() + 1).padStart(2, '0');
+                let yyyy = today.getFullYear().toString().substr(-2);
+                today = dd + '/' + mm + '/' + yyyy;
 
-            let mainID = document.getElementById('mainID').value;
-            let btnTab = $(".btnTab.active").text();
-            let btnTabMonth = $(".btnTabMonth.active").text();
+                let mainID = document.getElementById('mainID').value;
+                let btnTab = $(".btnTab.active").text();
+                let btnTabMonth = $(".btnTabMonth.active").text();
 
-            $.ajax({
-                url: 'sale-deposit-add.php',
-                type: 'POST',
-                dataType: 'json',
-                data: 'mainID=' + mainID + '&btnTabMonth=' + btnTabMonth + '&today=' + today,
-                success: function (data) {
-                    let insert_id = data.insert_id;
+                $.ajax({
+                    url: 'sale-deposit-add.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: 'mainID=' + mainID + '&btnTabMonth=' + btnTabMonth + '&today=' + today,
+                    success: function (data) {
+                        let insert_id = data.insert_id;
 
-                    if (insert_id !== 0) {
-                        $.ajax({
-                            type: 'POST',
-                            url: 'sale-load-deposit.php',
-                            data: {
-                                dataGrid: {mainID: mainID, tab: btnTab, month: btnTabMonth},
-                            },
-                            success: function (result) {
-                                document.getElementById("loadSaleData").innerHTML = result;
-                                document.getElementById('bodyDeposit' + insert_id).click();
-                            }
-                        });
-                    } else {
-                        alert(data.message);
+                        if (insert_id !== 0) {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'sale-load-deposit.php',
+                                data: {
+                                    dataGrid: {mainID: mainID, tab: btnTab, month: btnTabMonth},
+                                },
+                                success: function (result) {
+                                    document.getElementById("loadSaleData").innerHTML = result;
+                                    document.getElementById('bodyDeposit' + insert_id).click();
+                                }
+                            });
+                        } else {
+                            alert(data.message);
+                        }
                     }
-                }
+                });
             });
         }
 
@@ -519,6 +525,114 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
             });
         }
 
+        function confirmExpensesData(cb) {
+            $('#ajax-spinner').attr('class', 'visible');
+
+            let datas = [];
+            let btnTabMonth = $(".btnTabMonth.active").text();
+            let mainID = document.getElementById('mainID').value;
+            let btnTab = $(".btnTab.active").text();
+
+            $('.expenses-data').each(function () {
+                let id = $(this).data('expenses-id');
+                let date = $('.expenses-date', this).html().trim();
+                let item = $('.expenses-item', this).html().trim();
+                let category = $('.expenses-category option:selected', this).val();
+                let amount = $('.expenses-amount', this).html().trim();
+                let note = $('.expenses-note', this).html().trim();
+                let this_row = {id: id, date: date, item: item, category: category, amount: amount, note: note};
+                datas.push(this_row)
+            });
+
+            $.ajax({
+                url: 'sale-expenses-edit.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    btnTabMonth: btnTabMonth,
+                    datas: datas,
+                },
+                success: function (data) {
+                    cb(data, mainID, btnTab, btnTabMonth);
+                }
+            });
+        }
+
+        function confirmDepositData(cb) {
+            $('#ajax-spinner').attr('class', 'visible');
+
+            let datas = [];
+            let btnTabMonth = $(".btnTabMonth.active").text();
+            let mainID = document.getElementById('mainID').value;
+            let btnTab = $(".btnTab.active").text();
+
+            $('.deposit-data').each(function () {
+                let id = $(this).data('deposit-id');
+                let date = $('.deposit-date', this).html().trim();
+                let item = $('.deposit-item', this).html().trim();
+                let amount = $('.deposit-amount', this).html().trim();
+                let note = $('.deposit-note', this).html().trim();
+                let this_row = {id: id, date: date, item: item, amount: amount, note: note};
+                datas.push(this_row)
+            });
+
+            $.ajax({
+                url: 'sale-deposit-edit.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    btnTabMonth: btnTabMonth,
+                    datas: datas,
+                },
+
+                success: function (data) {
+                    cb(data, mainID, btnTab, btnTabMonth);
+                }
+            });
+        }
+
+        function confirmBankData() {
+            $('#ajax-spinner').attr('class', 'visible');
+
+            let tk = $('#tk-data').text().trim();
+            let hs = $('#hs-data').text().trim();
+            let date = $('#date-data').text().trim();
+            let latest_balance = $('#latest-balance-data').text().trim();
+            let id = $('#data-id').val();
+            let btn_tab = $('.btnTab.active').text();
+            let btn_tab_month = $('.btnTabMonth.active').text();
+            let mainID = document.getElementById('mainID').value;
+
+            $.ajax({
+                url: "sale-bank-edit.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    tk: tk,
+                    hs: hs,
+                    date: date,
+                    latest_balance: latest_balance,
+                    id: id,
+                },
+                success: function (data) {
+                    if (data.status === 0) {
+                        $('#ajax-spinner').attr('class', 'invisible');
+                        $.ajax({
+                            type: 'POST',
+                            url: 'sale-load-bank.php',
+                            data: {
+                                dataGrid: {mainID: mainID, tab: btn_tab, month: btn_tab_month},
+                            },
+                            success: function (result) {
+                                document.getElementById("loadSaleData").innerHTML = result;
+                            }
+                        });
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        }
 
         $(document).ready(function () {
             $('#loadFile').load('load-sale-file.php');
@@ -577,77 +691,11 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
             });
 
             /* Confirm bank data*/
-            $(document).on('click', '#confirm-bank-data', function () {
-                $('#ajax-spinner').attr('class', 'visible');
-
-                let tk = $('#tk-data').text().trim();
-                let hs = $('#hs-data').text().trim();
-                let date = $('#date-data').text().trim();
-                let latest_balance = $('#latest-balance-data').text().trim();
-                let id = $('#data-id').val();
-                let btn_tab = $('.btnTab.active').text();
-                let btn_tab_month = $('.btnTabMonth.active').text();
-
-                $.ajax({
-                    url: "sale-bank-edit.php",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        tk: tk,
-                        hs: hs,
-                        date: date,
-                        latest_balance: latest_balance,
-                        id: id,
-                    },
-                    success: function (data) {
-                        if (data.status === 0) {
-                            $('#ajax-spinner').attr('class', 'invisible');
-                            $.ajax({
-                                type: 'POST',
-                                url: 'sale-load-bank.php',
-                                data: {
-                                    dataGrid: {mainID: mainID, tab: btn_tab, month: btn_tab_month},
-                                },
-                                success: function (result) {
-                                    document.getElementById("loadSaleData").innerHTML = result;
-                                }
-                            });
-                        } else {
-                            alert(data.message);
-                        }
-                    }
-                });
-            });
+            $(document).on('click', '#confirm-bank-data', confirmBankData);
 
             /* Confirm expenses data */
             $(document).on('click', '#confirm-expenses-data', function () {
-                $('#ajax-spinner').attr('class', 'visible');
-
-                let datas = [];
-                let btnTabMonth = $(".btnTabMonth.active").text();
-                let mainID = document.getElementById('mainID').value;
-                let btnTab = $(".btnTab.active").text();
-
-                $('.expenses-data').each(function () {
-                    let id = $(this).data('expenses-id');
-                    let date = $('.expenses-date', this).html().trim();
-                    let item = $('.expenses-item', this).html().trim();
-                    let category = $('.expenses-category option:selected', this).val();
-                    let amount = $('.expenses-amount', this).html().trim();
-                    let note = $('.expenses-note', this).html().trim();
-                    let this_row = {id: id, date: date, item: item, category: category, amount: amount, note: note};
-                    datas.push(this_row)
-                });
-
-                $.ajax({
-                    url: 'sale-expenses-edit.php',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        btnTabMonth: btnTabMonth,
-                        datas: datas,
-                    },
-                    success: function (data) {
+                confirmExpensesData(function (data, mainID, btnTab, btnTabMonth) {
                         $('#ajax-spinner').attr('class', 'invisible');
                         if (data.status === 0) {
                             $.ajax({
@@ -665,41 +713,12 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                             alert(data.message);
                         }
                     }
-                });
-
+                )
             });
-
 
             /* Confirm deposit data*/
             $(document).on('click', '#confirm-deposit-data', function () {
-                $('#ajax-spinner').attr('class', 'visible');
-
-                let datas = [];
-                let btnTabMonth = $(".btnTabMonth.active").text();
-                let mainID = document.getElementById('mainID').value;
-                let btnTab = $(".btnTab.active").text();
-
-                $('.deposit-data').each(function () {
-                    let id = $(this).data('deposit-id');
-                    let date = $('.deposit-date', this).html().trim();
-                    let item = $('.deposit-item', this).html().trim();
-                    let amount = $('.deposit-amount', this).html().trim();
-                    let note = $('.deposit-note', this).html().trim();
-                    let this_row = {id: id, date: date, item: item, amount: amount, note: note};
-                    datas.push(this_row)
-                });
-
-                $.ajax({
-                    url: 'sale-deposit-edit.php',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        btnTabMonth: btnTabMonth,
-                        datas: datas,
-                    },
-
-                    success: function (data) {
-                        debugger;
+                confirmDepositData(function (data, mainID, btnTab, btnTabMonth) {
                         $('#ajax-spinner').attr('class', 'invisible');
 
                         if (data.status === 0) {
@@ -717,7 +736,7 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                             alert(data.message);
                         }
                     }
-                });
+                )
             });
         });
 
