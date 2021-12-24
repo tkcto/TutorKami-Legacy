@@ -1,0 +1,50 @@
+24/12/2021 18:50:00 | DELETE ( Deposit -  2) | NAM
+ ### Date   : 24/12/21
+ ### Item   : kosong
+ ### Amount : kosong
+ ### Note   : kosong
+
+24/12/2021 16:31:16 | DELETE ( Expenses -  11) | NAM
+ ### Date   : 24/12/21
+ ### Item   : kosong
+ ### Amount : kosong
+ ### Note   : kosong
+
+24/12/2021 16:31:14 | DELETE ( Expenses -  12) | NAM
+ ### Date   : 24/12/21
+ ### Item   : kosong
+ ### Amount : kosong
+ ### Note   : kosong
+
+24/12/2021 16:29:21 | DELETE ( Expenses -  11) | NAM
+ ### Date   : 24/12/21
+ ### Item   : dinner
+ ### Amount : 15.00
+ ### Note   : By TK
+
+24/12/2021 16:29:19 | DELETE ( Expenses -  12) | NAM
+ ### Date   : 24/12/21
+ ### Item   : supper
+ ### Amount : 17.00
+ ### Note   : By Tk
+
+24/12/2021 16:29:16 | DELETE ( Expenses -  13) | NAM
+ ### Date   : 24/12/21
+ ### Item   : teh tarik
+ ### Amount : 19.00
+ ### Note   : By Tk
+
+24/12/2021 16:29:12 | DELETE ( Expenses -  14) | NAM
+ ### Date   : 24/12/21
+ ### Item   : dummy
+ ### Amount : 1.00
+ ### Note   : by Tk
+
+24/12/2021 16:13:40 | ADD (Fadhli - Dec - 3) | NAM
+ ### Date Tutor :  => 24/12/21
+
+ ### Amount Tutor :  => 400.00
+
+24/12/2021 16:08:27 | ADD (Fadhli - Dec - 7428 Cikgu Nadia 560.00) | NAM
+
+
