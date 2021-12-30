@@ -7,8 +7,17 @@
  * version of an image file and saves it as another file
  */
 
-define('THUMBNAIL_IMAGE_MAX_WIDTH', 250);
-define('THUMBNAIL_IMAGE_MAX_HEIGHT', 250);
+const THUMBNAIL_IMAGE_MAX_WIDTH = 250;
+const THUMBNAIL_IMAGE_MAX_HEIGHT = 250;
+
+const THUMBNAIL_IMAGE_MAX_WIDTH_TESTI = 360;
+const THUMBNAIL_IMAGE_MAX_HEIGHT_TESTI = 600;
+
+const UPLOADED_IMAGE_DESTINATION = 'images/testimonial/images/';
+const THUMBNAIL_IMAGE_DESTINATION = 'images/testimonial/thumbnails/';
+
+const THUMBNAIL_IMAGE_DESTINATION2 = 'images/testimonial/thumbnails/';
+const THUMBNAIL_IMAGE_DESTINATION3 = 'images/testimonial/thumbnails/';
 
 function generate_image_thumbnail($source_image_path, $thumbnail_image_path)
 {
@@ -47,8 +56,6 @@ function generate_image_thumbnail($source_image_path, $thumbnail_image_path)
     return true;
 }
 
-define('THUMBNAIL_IMAGE_MAX_WIDTH_TESTI', 360);
-define('THUMBNAIL_IMAGE_MAX_HEIGHT_TESTI', 600);
 function generate_image_thumbnail_testi($source_image_path, $thumbnail_image_path)
 {
     list($source_image_width, $source_image_height, $source_image_type) = getimagesize($source_image_path);
@@ -124,11 +131,6 @@ function correctImageOrientation($filename) {
 
 
 
-define('UPLOADED_IMAGE_DESTINATION', './../fadhli/testimage/images/');
-define('THUMBNAIL_IMAGE_DESTINATION', './../fadhli/testimage/thumbnails/');
-
-define('THUMBNAIL_IMAGE_DESTINATION2', './../images/profile/');
-define('THUMBNAIL_IMAGE_DESTINATION3', './../images/testimonial/');
 
 
 
@@ -182,6 +184,9 @@ correctImageOrientation($uploaded_image_path);
 
 
 function process_image_upload_testi($field, $namaFile){
+
+
+
     $temp_image_path = $_FILES[$field]['tmp_name'];
     $temp_image_name = $_FILES[$field]['name'];
     list(, , $temp_image_type) = getimagesize($temp_image_path);
@@ -198,13 +203,13 @@ function process_image_upload_testi($field, $namaFile){
         default:
             return false;
     }
- 
-if(isMobile()){
-    $deviceType = 'mobile';
-}
-else {
-    $deviceType = 'desktop';
-}
+
+    if(isMobile()){
+        $deviceType = 'mobile';
+    }
+    else {
+        $deviceType = 'desktop';
+    }
     $uploaded_image_path = UPLOADED_IMAGE_DESTINATION .$deviceType.'-' . $namaFile.'.jpg';
     move_uploaded_file($temp_image_path, $uploaded_image_path);
     correctImageOrientation($uploaded_image_path);

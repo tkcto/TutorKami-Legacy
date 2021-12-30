@@ -1,6 +1,7 @@
 <?php 
 
 require_once('includes/head.php');
+require_once ('admin/classes/config.php.inc');
 
 if (!isset($_SESSION['auth'])) {
 
@@ -96,7 +97,7 @@ $user_info = (array) $getUserDetails->data[0];*/
                                     //$city_ch = system::FireCurl(USER_AREA_URL.'?user_id='.$user_id.'&city_id='.$city->city_id);
 									$dataCity = $city->city_id;
 
-$con=mysqli_connect("localhost","tutorka1_live","_+11pj,oow.L","tutorka1_tutorkami_db");
+$con=mysqli_connect(HOSTNAME,DB_USER,DB_PASS,DBNAME);
 $sql="SELECT * FROM tk_tutor_area_cover
 WHERE tac_u_id = $user_id AND tac_city_id = $dataCity";
 $result=mysqli_query($con,$sql);

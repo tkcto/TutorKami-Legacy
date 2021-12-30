@@ -1,10 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "tutorka1_live";
-$password = "_+11pj,oow.L";
-$dbname = "tutorka1_tutorkami_db";
+require './admin/classes/config.php.inc';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli(HOSTNAME, DB_USER, DB_PASS, DBNAME);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

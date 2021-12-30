@@ -17,6 +17,7 @@ RewriteRule ^(.*)\.html$ $1.php?%{QUERY_STRING} [L]
 
 # Route image to live server
 RewriteCond %{HTTP_HOST} ^tk\.io$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^images/(.*)$ https://www.tutorkami.com/images/$1 [L,R]
 
 
