@@ -1,4 +1,1 @@
-<?php require_once('includes/head.php'); ?>
-<?php
-  $instAuth->Logout();
-?>
+<?phperror_reporting(E_ALL);session_start();require_once('classes/auth.class.php');$instAuth = new auth();$instAuth->Logout();

@@ -30,8 +30,8 @@ if(isset($_SESSION['current_time'])){
 }
 
 switch($curPage) {
+	case 'logout': {}break;
 	case 'login':
-	case 'logout':
 	case 'register':
 	case 'confirm':
 	case 'check-username': {
