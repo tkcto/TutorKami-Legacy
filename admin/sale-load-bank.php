@@ -58,8 +58,9 @@ if (isset($_POST['dataGrid'])) {
     $sql = sprintf(
         "SELECT SUM(amount) total
         FROM tk_sales_deposit
-        WHERE main_id = '1'
-            AND row_no != '0'"
+        WHERE main_id = '%s'
+            AND row_no != '0'",
+        $_POST['dataGrid']['mainID']
     );
 
     $query = $conn->query($sql);
@@ -70,8 +71,9 @@ if (isset($_POST['dataGrid'])) {
     $sql = sprintf(
         "SELECT TRUNCATE(SUM(amount), 2) as total
             FROM tk_sales_expenses
-        WHERE main_id = '1'
-            AND row_no != '0'"
+        WHERE main_id = '%s'
+            AND row_no != '0'",
+        $_POST['dataGrid']['mainID']
     );
 
     $query = $conn->query($sql);
