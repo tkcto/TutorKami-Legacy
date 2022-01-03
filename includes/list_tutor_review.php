@@ -6,15 +6,19 @@ $review_obj_approve = system::FireCurl(LIST_REVIEW_URL_APPROVE.'?tutor_id='.$use
 ?>
 <div class="row">
   <div class="col-sm-12">
-  <?PHP 
+  <?php
 
 	$total=0;
+    $purata =0;
+
 	foreach($review_obj_approve->data as $key=>$value){
-		//echo $key. " = " .$value->rr_rating. "<br>"; 
 		$total+= $value->rr_rating;
 	}
-	$purata = ($total / count($review_obj_approve->data));
-	//echo $purata;
+
+    if($total != 0) {
+        $purata = ($total / count($review_obj_approve->data));
+    }
+
 	?>
 	
 <?php
