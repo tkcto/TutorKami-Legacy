@@ -973,7 +973,12 @@ if ($dbCon->connect_error) {
                                                             if (is_numeric($userRow['u_profile_pic'])) {
                                                                 echo "<img src=\"" . APP_ROOT . "images/profile/" . $pix . "_0.jpg\" alt=\"profile_pic\" class=\"img-thumbnail\">";
                                                             } else {
-                                                                echo "<img src=\"" . APP_ROOT . "images/profile/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\">";
+
+                                                                if(file_exists(DIR_ROOT . "images/profile/" . $userRow['u_profile_pic'] . ".jpg")) {
+                                                                    echo "<img src=\"" . APP_ROOT . "images/profile/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\">";
+                                                                } else {
+                                                                    echo "<img src=\"" . APP_ROOT . "images/profile/images/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\">";
+                                                                }
                                                             }
                                                         } elseif ($userRow['u_gender'] == 'M') {
                                                             echo '<img src="' . APP_ROOT . "images/tutor_ma.png" . '" alt="profile_pic" class="img-thumbnail">';

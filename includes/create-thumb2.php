@@ -19,6 +19,10 @@ const THUMBNAIL_IMAGE_DESTINATION = 'images/testimonial/thumbnails/';
 const THUMBNAIL_IMAGE_DESTINATION2 = 'images/testimonial/thumbnails/';
 const THUMBNAIL_IMAGE_DESTINATION3 = 'images/testimonial/thumbnails/';
 
+
+const PROFILE_IMAGE_DESTINATION = 'images/profile/images/';
+const PROFILE_THUMB_DESTINATION = 'images/profile/thumbnails/';
+
 function generate_image_thumbnail($source_image_path, $thumbnail_image_path) {
     list($source_image_width, $source_image_height, $source_image_type) = getimagesize($source_image_path);
 
@@ -165,11 +169,13 @@ function process_image_upload($field, $namaFile) {
         $deviceType = 'desktop';
     }
 
-    $uploaded_image_path = UPLOADED_IMAGE_DESTINATION . $deviceType . '-' . $namaFile . '.jpg';
+    $uploaded_image_path = PROFILE_IMAGE_DESTINATION . $deviceType . '-' . $namaFile . '.jpg';
     move_uploaded_file($temp_image_path, $uploaded_image_path);
     correctImageOrientation($uploaded_image_path);
-    $thumbnail_image_path = THUMBNAIL_IMAGE_DESTINATION2 . $namaFile . '.jpg';
+
+    $thumbnail_image_path = PROFILE_THUMB_DESTINATION . $namaFile . '.jpg';
     $result = generate_image_thumbnail($uploaded_image_path, $thumbnail_image_path);
+
     return $result ? array($uploaded_image_path, $thumbnail_image_path) : false;
 }
 

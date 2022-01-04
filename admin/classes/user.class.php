@@ -4164,7 +4164,7 @@ if (filter_var($lastname, FILTER_VALIDATE_EMAIL)) {
                 if ($data['cover_area_city_'.$cid]) {
                     // print_r($data['cover_area_city_'.$cid]);
 
-                    if(count($data['cover_area_city_'.$cid] > 0)){
+                    if(count($data['cover_area_city_'.$cid] ) > 0  ){
                     
                       
                         foreach ($data['cover_area_city_'.$cid] as $key => $pid) {
