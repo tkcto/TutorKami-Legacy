@@ -1526,14 +1526,21 @@ $(document).on('click', function (e){
                             <img src="css-pricing/rotating-card/bg-card.jpg"/>
                         </div>
                         <div class="user">
-                            <img class="circular-square" src="<?php 
-							if($tutor->u_profile_pic!='') { 
+                            <img class="circular-square" src="<?php
+
+							if($tutor->u_profile_pic!='') {
 								//echo APP_ROOT."images/profile/".$pix."_0.jpg"; 
 								if ( is_numeric($tutor->u_profile_pic) ) {
 									echo APP_ROOT."images/profile/".$pix."_0.jpg"; 
 								}else{
-									$pic = $tutor->u_profile_pic;
-									echo APP_ROOT."images/profile/".$pic.".jpg";
+
+									$pic = $tutor->u_profile_pic . '.jpg';
+
+                                    if(file_exists(DIR_ROOT . 'images/profile/'. $pic)) {
+                                        echo APP_ROOT."images/profile/".$pic;
+                                    } else {
+                                        echo APP_ROOT."images/profile/images/".$pic;
+                                    }
 								}
 							} else { 
 								if($tutor->u_gender=='M') echo 'images/tutor_ma.png'; else echo 'images/tutor_mi1.png'; 
