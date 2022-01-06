@@ -361,7 +361,8 @@ if (isset($_GET['requiredid'])) {
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu scrollable-menu" role="menu" style="width:150px;">
-            <li><a class="btnSummary" data-label="Summary">Summary </a></li>
+            <li><a class="btnSalesFile" data-label="Sales File">Sales File</a></li>
+            <li><a class="btnSummary" data-label="Summary">Summary</a></li>
             <li><a class="btnExpenses" data-label="Expenses">Expenses</a></li>
             <li><a class="btnBank" data-label="Bank">Bank</a></li>
             <li><a class="btnDeposit" data-label="Deposits">Deposits</a></li>
@@ -581,7 +582,6 @@ $conn->close();
             autoclose: true
         });
     });
-
 
     function runReceipt(type, val) {
         $("#tempModalFooter").removeClass("hidden");
@@ -803,6 +803,7 @@ $conn->close();
             }
 
         });
+
         $(".btnSummary").click(function () {
 
             $('#tabs-label').html($(this).data('label'))
@@ -921,9 +922,36 @@ $conn->close();
                 },
                 success: function (result) {
                     document.getElementById("loadSaleData").innerHTML = result;
+                    setCurrentTK();
                 }
             });
+
         });
+
+        $(".btnSalesFile").click(function (){
+            $('#loadFile').load('load-sale-file.php');
+            let d = new Date();
+            let year = d.getFullYear();
+
+            $.ajax({
+                type: 'POST',
+                url: 'sale-process.php',
+                data: {
+                    getYear: {year: year},
+                },
+                success: function (result) {
+                    if (result === "empty year") {
+                        document.getElementById("showFile").innerHTML = 'Sales File';
+                    } else {
+                        document.getElementById("showFile").innerHTML = getBeforePart(result);
+                        let loadFileTabs = getAfterPart(result);
+                        document.getElementById("ExportExcel").value = loadFileTabs;
+                        $('#loadFileTabs').load('load-sale-file-tabs-test.php?requiredid=' + loadFileTabs);
+                    }
+                }
+            });
+        })
+
 
     });
 
@@ -1899,7 +1927,6 @@ $conn->close();
             }
         }, 1000);
     }
-
 
     function app_cancelAdd(newNo) {
         $("#add-more").show();
@@ -3352,7 +3379,6 @@ $conn->close();
         }
     }
 
-
     function dateTutorPaid(editableObj, column, id, tableID) {
         var mainID = document.getElementById('mainID').value;
         var btnTab = $(".btnTab.active").text();
@@ -3899,7 +3925,6 @@ $conn->close();
             });
         }
     }
-
 
     function deleteRecordDeposit(id) {
         if (confirm("Are you sure you want to delete this row?")) {

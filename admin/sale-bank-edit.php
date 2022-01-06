@@ -30,17 +30,24 @@ if ($_POST["column"] == 'tk' || $_POST["column"] == 'hs' || $_POST["column"] == 
     $val = trim($_POST["editval"]);
 }
 
+$fmt = new NumberFormatter('en_EN',  NumberFormatter::DECIMAL);
+
 $sql = sprintf("
     UPDATE tk_sales_bank 
-        SET tk='%s', 
+        SET 
+        tk='%s', 
         hs='%s', 
+        current_tk='%s', 
+        current_hs='%s', 
         date='%s', 
         latest_balance='%s'
     WHERE id='%s'",
-    $_POST['tk'],
-    $_POST['hs'],
+    $fmt->parse($_POST['tk']),
+    $fmt->parse($_POST['hs']),
+    $fmt->parse($_POST['current_tk']),
+    $fmt->parse($_POST['current_hs']),
     $_POST['date'],
-    $_POST['latest_balance'],
+    $fmt->parse($_POST['latest_balance']),
     $_POST['id']
 );
 

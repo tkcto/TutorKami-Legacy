@@ -422,7 +422,6 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                     dataType: 'json',
                     data: 'mainID=' + mainID + '&btnTabMonth=' + btnTabMonth + '&today=' + today,
                     success: function (data) {
-                        debugger;
                         let numberOnly = data.insert_id;
 
                         if (numberOnly !== null) {
@@ -486,7 +485,6 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
         }
 
         function saveDeposit(editableObj, column, id, tableID) {
-            debugger;
             var mainID = document.getElementById('mainID').value;
             var btnTab = $(".btnTab.active").text();
             var btnTabMonth = $(".btnTabMonth.active").text();
@@ -602,6 +600,8 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
             let btn_tab = $('.btnTab.active').text();
             let btn_tab_month = $('.btnTabMonth.active').text();
             let mainID = document.getElementById('mainID').value;
+            let current_tk = $('#current-tk-data').text().trim();
+            let current_hs = $('#current-hs-data').text().trim();
 
             $.ajax({
                 url: "sale-bank-edit.php",
@@ -612,6 +612,8 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                     hs: hs,
                     date: date,
                     latest_balance: latest_balance,
+                    current_tk: current_tk,
+                    current_hs: current_hs,
                     id: id,
                 },
                 success: function (data) {
@@ -632,6 +634,21 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                     }
                 }
             });
+        }
+
+        function setCurrentTK() {
+            let latest_balance = parseFloat($('#latest-balance-data').html().replace(",",""));
+            let current_hs = parseFloat($('#current-hs-data').html().replace(",",""));
+
+            if(isNaN(current_hs)) {
+                current_hs = 0;
+                $('#current-hs-data').html(current_hs);
+            }
+
+            let tk_val = (Math.round(((latest_balance - current_hs) + Number.EPSILON) * 100) / 100).toFixed(2);
+            let tk_val_str = tk_val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            $('#current-tk-data').html(tk_val_str);
         }
 
         $(document).ready(function () {
@@ -680,13 +697,29 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
 
             /* Event when user click on the editable table cell*/
             let bg_color = null;
+            let cell_focus = false;
             $(document).on('click', '.data-edit', function () {
-                bg_color = $(this).css('background-color');
+                // bg_color = $(this).css('background-color');
+                cell_focus = true;
                 $(this).css('background-color', '#f3ebcd');
+            });
+
+            $(document).on('mouseover', '.data-edit', function () {
+                if(!cell_focus) {
+                    bg_color = $(this).css('background-color');
+                    $(this).css('background-color', '#ddd');
+                }
+            });
+
+            $(document).on('mouseleave', '.data-edit', function () {
+                if(!cell_focus) {
+                    $(this).css('background-color', bg_color);
+                }
             });
 
             /* Event when user lost focus on the editable table cell*/
             $(document).on('blur', '.data-edit', function () {
+                cell_focus = false;
                 $(this).css('background-color', bg_color);
             });
 
@@ -738,7 +771,14 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                     }
                 )
             });
+
+            /* Calculate current tk*/
+            $(document).on('blur','#current-hs-data', function(){
+                setCurrentTK();
+            });
+
         });
+
 
     </script>
 
