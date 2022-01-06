@@ -151,7 +151,8 @@ if (isset($_POST['dataGrid'])) {
 
     $sql = sprintf("
         SELECT sum(no4) non_current_year_revenue FROM tk_sales_sub
-        WHERE main_id = '%s' AND cf IS NOT NULL",
+        WHERE main_id = '%s' AND cf IS NOT NULL
+        AND SUBSTR(no1, -2) <> DATE_FORMAT(CURDATE(), '%%y')",
         $dataGrid['mainID']
     );
 
@@ -173,13 +174,13 @@ if (isset($_POST['dataGrid'])) {
                 <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center;"> TK</td>
 
                 <td id="tk-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true">
-                    <?php echo ($rowSelect['tk'] == 'kosong') ? '' : number_format($rowSelect['tk'], 2, '.', ','); ?>
+                    <?php echo ($rowSelect['tk'] == 'kosong') ? '' : number_format((float)str_replace(',','',$rowSelect['tk']), 2, '.', ','); ?>
                 </td>
 
                 <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center;"> HS</td>
 
                 <td id="hs-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true">
-                    <?php echo ($rowSelect['hs'] == 'kosong') ? '' : number_format($rowSelect['hs'], 2, '.', ','); ?>
+                    <?php echo ($rowSelect['hs'] == 'kosong') ? '' : number_format((float)str_replace(',','', $rowSelect['hs']), 2, '.', ','); ?>
                 </td>
 
                 <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center;"> Date</td>
@@ -201,9 +202,9 @@ if (isset($_POST['dataGrid'])) {
 
             <tr class="table-row">
                 <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center;"> Total Bank</td>
-                <td id="" class="row-data" style="font-size:14px;width:80px;text-align: right;"> <?php echo number_format($total_bank, 2, '.', ','); ?></td>
+                <td id="" class="row-data" style="font-size:14px;width:80px;text-align: right;"> <?php echo number_format((float)str_replace(',','',$total_bank), 2, '.', ','); ?></td>
                 <td id="" class="row-data" style="font-size:14px;width:200px;text-align: center"> NCYR</td>
-                <td id="" class="row-data" style="font-size:14px;width:200px;text-align:right"><?php echo number_format($revenue_non_current_year, 2, '.', ','); ?></td>
+                <td id="" class="row-data" style="font-size:14px;width:200px;text-align:right"><?php echo number_format((float)str_replace(',','',$revenue_non_current_year), 2, '.', ','); ?></td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
             </tr>
@@ -219,7 +220,7 @@ if (isset($_POST['dataGrid'])) {
 
             <tr class="table-row">
                 <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center"> Latest Balance</td>
-                <td id="latest-balance-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true"><?php echo number_format($latest_balance, 2, '.', ','); ?></td>
+                <td id="latest-balance-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true"><?php echo number_format((float)str_replace(',','',$latest_balance), 2, '.', ','); ?></td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
                 <td id="" class="row-data" style="font-size:14px;width:200px;"> &nbsp;</td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
@@ -237,9 +238,9 @@ if (isset($_POST['dataGrid'])) {
 
             <tr class="table-row">
                 <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center;">Current HS</td>
-                <td id="current-hs-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true"><?php echo number_format($current_hs, 2, '.', ','); ?></td>
+                <td id="current-hs-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true"><?php echo number_format((float)str_replace(',','',$current_hs), 2, '.', ','); ?></td>
                 <td id="" class="row-data" style="font-size:14px;width:200px;text-align: center">Current TK</td>
-                <td id="current-tk-data" class="row-data" style="font-size:14px;width:200px;text-align:right"><?php echo number_format($current_tk, 2, '.', ','); ?></td>
+                <td id="current-tk-data" class="row-data" style="font-size:14px;width:200px;text-align:right"><?php echo number_format((float)str_replace(',','',$current_tk), 2, '.', ','); ?></td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
             </tr>
