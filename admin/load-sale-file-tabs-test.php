@@ -1688,12 +1688,17 @@ $conn->close();
         let btnTabMonth = $(".btnTabMonth.active").text();
         let trythis = (Number(numTable) + 1);
 
-        let btmRow = document.getElementById("table-row-" + trythis);
-        let btmCells = btmRow.getElementsByTagName("td");
         let RF = null;
+        let btmRow = document.getElementById("table-row-" + trythis);
 
-        if (btmCells[3].innerText == 'R.F') {
-            RF = 'Yes';
+        if(btmRow !==null) {
+            let btmCells = btmRow.getElementsByTagName("td");
+
+            if (btmCells[3].innerText == 'R.F') {
+                RF = 'Yes';
+            } else {
+                RF = 'No';
+            }
         } else {
             RF = 'No';
         }

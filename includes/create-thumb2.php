@@ -19,9 +19,17 @@ const THUMBNAIL_IMAGE_DESTINATION = 'images/testimonial/thumbnails/';
 const THUMBNAIL_IMAGE_DESTINATION2 = 'images/testimonial/thumbnails/';
 const THUMBNAIL_IMAGE_DESTINATION3 = 'images/testimonial/thumbnails/';
 
-
 const PROFILE_IMAGE_DESTINATION = 'images/profile/images/';
 const PROFILE_THUMB_DESTINATION = 'images/profile/thumbnails/';
+
+
+function createDirPath($path) {
+    if (!file_exists($path)) {
+        $old_mask = umask(0);
+        mkdir($path, 0777, TRUE);
+        umask($old_mask);
+    }
+}
 
 function generate_image_thumbnail($source_image_path, $thumbnail_image_path) {
     list($source_image_width, $source_image_height, $source_image_type) = getimagesize($source_image_path);
@@ -105,9 +113,6 @@ function generate_image_thumbnail_testi($source_image_path, $thumbnail_image_pat
     return true;
 }
 
-/*
- * Uploaded file processing function
- */
 function isMobile() {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
@@ -141,7 +146,6 @@ function correctImageOrientation($filename) {
     } // if function exists
 }
 
-
 function process_image_upload($field, $namaFile) {
     $temp_image_path = $_FILES[$field]['tmp_name'];
     $temp_image_name = $_FILES[$field]['name'];
@@ -169,16 +173,24 @@ function process_image_upload($field, $namaFile) {
         $deviceType = 'desktop';
     }
 
-    $uploaded_image_path = PROFILE_IMAGE_DESTINATION . $deviceType . '-' . $namaFile . '.jpg';
+    if (!is_dir(DIR_ROOT . PROFILE_IMAGE_DESTINATION)) {
+        createDirPath(DIR_ROOT . PROFILE_IMAGE_DESTINATION);
+    }
+
+
+    if (!is_dir(DIR_ROOT . PROFILE_THUMB_DESTINATION)) {
+        createDirPath(DIR_ROOT . PROFILE_THUMB_DESTINATION);
+    }
+
+    $uploaded_image_path = DIR_ROOT . PROFILE_IMAGE_DESTINATION . $deviceType . '-' . $namaFile . '.jpg';
     move_uploaded_file($temp_image_path, $uploaded_image_path);
     correctImageOrientation($uploaded_image_path);
 
-    $thumbnail_image_path = PROFILE_THUMB_DESTINATION . $namaFile . '.jpg';
+    $thumbnail_image_path = DIR_ROOT . PROFILE_THUMB_DESTINATION . $namaFile . '.jpg';
     $result = generate_image_thumbnail($uploaded_image_path, $thumbnail_image_path);
 
     return $result ? array($uploaded_image_path, $thumbnail_image_path) : false;
 }
-
 
 function process_image_upload_testi($field, $namaFile) {
     $temp_image_path = $_FILES[$field]['tmp_name'];
@@ -206,20 +218,20 @@ function process_image_upload_testi($field, $namaFile) {
         $deviceType = 'desktop';
     }
 
-    if (!is_dir(UPLOADED_IMAGE_DESTINATION)) {
-        mkdir(UPLOADED_IMAGE_DESTINATION, 0777, true);
+    if (!is_dir(DIR_ROOT . UPLOADED_IMAGE_DESTINATION)) {
+        createDirPath(DIR_ROOT . UPLOADED_IMAGE_DESTINATION);
     }
 
-    if (!is_dir(THUMBNAIL_IMAGE_DESTINATION3)) {
-        mkdir(THUMBNAIL_IMAGE_DESTINATION3, 0777, true);
+    if (!is_dir(DIR_ROOT . THUMBNAIL_IMAGE_DESTINATION3)) {
+        createDirPath(DIR_ROOT . THUMBNAIL_IMAGE_DESTINATION3);
     }
 
-    $uploaded_image_path = UPLOADED_IMAGE_DESTINATION . $deviceType . '-' . $namaFile . '.jpg';
+    $uploaded_image_path = DIR_ROOT . UPLOADED_IMAGE_DESTINATION . $deviceType . '-' . $namaFile . '.jpg';
     $res = move_uploaded_file($temp_image_path, $uploaded_image_path);
 
     correctImageOrientation($uploaded_image_path);
 
-    $thumbnail_image_path = THUMBNAIL_IMAGE_DESTINATION3 . $namaFile . '.jpg';
+    $thumbnail_image_path = DIR_ROOT . THUMBNAIL_IMAGE_DESTINATION3 . $namaFile . '.jpg';
     $result = generate_image_thumbnail_testi($uploaded_image_path, $thumbnail_image_path);
     return $result ? array($uploaded_image_path, $thumbnail_image_path) : false;
 }
