@@ -1682,13 +1682,25 @@ $conn->close();
     }
 
     function carryForwardConfirm2(editableObj, column, id, numTable) {
-        var mainID = document.getElementById('mainID').value;
-        var btnTab = $(".btnTab.active").text();
-        var btnTabMonth = $(".btnTabMonth.active").text();
+        debugger;
+        let mainID = document.getElementById('mainID').value;
+        let btnTab = $(".btnTab.active").text();
+        let btnTabMonth = $(".btnTabMonth.active").text();
+        let trythis = (Number(numTable) + 1);
+
+        let btmRow = document.getElementById("table-row-" + trythis);
+        let btmCells = btmRow.getElementsByTagName("td");
+        let RF = null;
+
+        if (btmCells[3].innerText == 'R.F') {
+            RF = 'Yes';
+        } else {
+            RF = 'No';
+        }
 
         $("#confirmBox2").hide();
         setTimeout(function () {
-            var x = confirm("Are you sure you want to carry forward?");
+            let x = confirm("Are you sure you want to carry forward?");
 
             if (x == true) {
                 $(".overlayBG").show();
@@ -1696,7 +1708,7 @@ $conn->close();
                     type: 'POST',
                     url: 'sale-process.php',
                     data: {
-                        carryForward2: {id: id},
+                        carryForward2: {id: id, RF:RF},
                     },
                     success: function (result) {
                         $(".overlayBG").hide();
