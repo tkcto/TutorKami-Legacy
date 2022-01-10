@@ -2604,24 +2604,9 @@ if ($resulthistoryWa2st->num_rows > 0) {
                            <div class="col-lg-7">
                               <div class="form-inline">
                               <input data-required onkeypress="return isNumberKey(event , this.id)" type="text"  class="form-control decimal" name="parent_rate" id="parent_rate" value="<?php echo isset($_REQUEST['j']) ? $arrJb['parent_rate'] : ''; ?>" style="width:70px;" > <span> <font size="2"></font></span><span> <font size="2"><b>&nbsp;&nbsp;per hour X&nbsp;&nbsp;</b></font></span>
-<?PHP
-                                            $redOnGoingKelas = '';
-                                            $OnGoingKelas = " SELECT cr_id, cl_id, cr_cl_id, cl_display_id, current_cycle, cr_date, cr_start_time, cr_status FROM tk_classes_record
-                                            INNER JOIN tk_classes ON cl_id = cr_cl_id
-                                            WHERE cl_display_id = '".$arrJb['j_id']."'
-                                            AND current_cycle NOT LIKE '%temp%'
-                                            ORDER BY cr_date DESC, cr_start_time DESC, cr_id DESC ";
-                                            $reOnGoingKelas = $conDB->query($OnGoingKelas);
-                                            if ($reOnGoingKelas->num_rows > 0) {
-                                                $roOnGoingKelas = $reOnGoingKelas->fetch_assoc();
-                                                if( $roOnGoingKelas['cr_status'] == 'new' || $roOnGoingKelas['cr_status'] == 'FM to pay tutor' || $roOnGoingKelas['cr_status'] == 'Required Parent To Pay' || $roOnGoingKelas['cr_status'] == 'new Cycle' ){
-                                                    $redOnGoingKelas = '';
-                                                }else{
-                                                    $redOnGoingKelas = 'readonly';
-                                                }
-                                            }
-?>
-                              <input <?PHP echo $redOnGoingKelas; ?> data-required onkeypress="return isNumberKey(event , this.id)" type="text"  class="form-control decimal" name="cycle" id="cycle" value="<?php echo isset($_REQUEST['j']) ? $arrJb['cycle'] : ''; ?>" style="width:70px;" > <span> <font size="2"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></font></span>
+
+
+                              <input data-required onkeypress="return isNumberKey(event , this.id)" type="text"  class="form-control decimal" name="cycle" id="cycle" value="<?php echo isset($_REQUEST['j']) ? $arrJb['cycle'] : ''; ?>" style="width:70px;" > <span> <font size="2"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></font></span>
                               <input onkeypress="return isNumberKey(event , this.id)" type="text"  class="form-control decimal" name="rf" id="rf" value="<?php echo isset($_REQUEST['j']) ? $arrJb['rf'] : ''; ?>" style="width:70px;" > <font size="2"><b>&nbsp;&nbsp;<span id='totalResult'></span>&nbsp;&nbsp;</b></font>
 
                                     <?PHP

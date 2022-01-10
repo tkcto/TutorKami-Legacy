@@ -1,9 +1,9 @@
 <div class="footer">
-    <div class="col-xs-2">
+    <div class="col-xs-2" id="refresh-timer">
         <input class="form-control" disabled id="refreshTimer" type="text">
     </div>
 
-    <div>
+    <div id="text-copyright">
         <strong>Copyright</strong> <a href="https://www.tutorkami.com/" target="_blank">tutorkami</a> © 2017 <span id="storeSession"></span>
     </div>
 </div>
