@@ -9,6 +9,11 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
 ?>
 
 <style>
+    .profile-btn {
+        padding-left: 2px;
+        padding-top: 9px;
+
+    }
     .btn.btn-primary:disabled {
         background-color: #FF4500;
         border-color: #FF4500;
@@ -962,7 +967,7 @@ if ($dbCon->connect_error) {
                                             <div class="col-md-12">
 
 
-                                                <div class="col-md-4 text-right <?php if (isset($_GET['action']) && $_GET['action'] == 'edit' && $userRow['u_role'] == 4) {
+                                                <div class="text-left <?php if (isset($_GET['action']) && $_GET['action'] == 'edit' && $userRow['u_role'] == 4) {
                                                     echo "hidden";
                                                 } ?>">
                                                     <?php $pix = sprintf("%'.07d\n", $userRow['u_profile_pic']);
@@ -975,18 +980,18 @@ if ($dbCon->connect_error) {
                                                             } else {
 
                                                                 if(file_exists(DIR_ROOT . "images/profile/" . $userRow['u_profile_pic'] . ".jpg")) {
-                                                                    echo "<img src=\"" . APP_ROOT . "images/profile/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\">";
+                                                                    echo "<img src=\"" . APP_ROOT . "images/profile/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\" width='250' height='250'>";
                                                                 } else {
-                                                                    echo "<img src=\"" . APP_ROOT . "images/profile/images/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\">";
+                                                                    echo "<img src=\"" . APP_ROOT . "images/profile/images/" . $userRow['u_profile_pic'] . ".jpg\" alt=\"profile_pic\" class=\"img-thumbnail\" width='250' height='250'>";
                                                                 }
                                                             }
                                                         } elseif ($userRow['u_gender'] == 'M') {
-                                                            echo '<img src="' . APP_ROOT . "images/tutor_ma.png" . '" alt="profile_pic" class="img-thumbnail">';
+                                                            echo '<img src="' . APP_ROOT . "images/tutor_ma.png" . '" alt="profile_pic" class="img-thumbnail" width="250" height="250">';
                                                         } else {
-                                                            echo '<img src="' . APP_ROOT . "images/tutor_mi1.png" . '" alt="profile_pic" class="img-thumbnail">';
+                                                            echo '<img src="' . APP_ROOT . "images/tutor_mi1.png" . '" alt="profile_pic" class="img-thumbnail" width="250" height="250">';
                                                         }
                                                     }
-                                                    ?><p>
+                                                    ?><p class="profile-btn">
                                                         <input type="file" name="u_profile_pic" id="file-7" class="inputfile inputfile-6" accept="image/*"></p>
                                                 </div>
 

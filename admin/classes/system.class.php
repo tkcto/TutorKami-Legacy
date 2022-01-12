@@ -57,7 +57,16 @@ class system extends db {
 		}
 	}
 	function FetchMenuByRole($r_id, $parentMenuId = '%') {
-		return $this->db->query("SELECT m.m_id, m.m_name, m.m_url, m.m_icon, m.m_parent_id, m.m_position, m.m_submenu, m.m_status, m.m_display, mp.mp_view FROM ".DB_PREFIX."_menu AS m LEFT JOIN ".DB_PREFIX."_menu_perm AS mp ON m.m_id = mp.mp_menuid WHERE mp.mp_roleid = ".$r_id." AND m.m_parent_id LIKE '".$parentMenuId."' ORDER BY m.m_position ASC");
+        $sql = sprintf("
+                SELECT m.m_id, m.m_name, m.m_url, m.m_icon, m.m_parent_id, 
+                m.m_position, m.m_submenu, m.m_status, m.m_display, mp.mp_view 
+                FROM %s AS m LEFT JOIN %s AS mp 
+                ON m.m_id = mp.mp_menuid 
+                WHERE mp.mp_roleid = %s AND m.m_parent_id LIKE '%s' ORDER BY m.m_position ASC",
+                DB_PREFIX . '_menu', DB_PREFIX . '_menu_perm', $r_id, $parentMenuId
+        );
+
+		return $this->db->query($sql);
 	}
 	function GetBreadCrumb($current_page) {
 		$sql = "SELECT m.m_id, m.m_name, m.m_url, m.m_parent_id, parent.m_id AS parent_id, parent.m_name AS parent_name, parent.m_url AS parent_url 

@@ -239,10 +239,10 @@ if (isset($_POST['dataGrid'])) {
             </tr>
 
             <tr class="table-row">
-                <td id="" class="row-data" style="font-size:14px;width:150px;text-align: center;">Current HS</td>
-                <td id="current-hs-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true"><?php echo number_format((float)str_replace(',', '', $current_hs), 2, '.', ','); ?></td>
-                <td id="" class="row-data" style="font-size:14px;width:200px;text-align: center">Current TK</td>
+                <td class="row-data" style="font-size:14px;width:200px;text-align: center">Current TK</td>
                 <td id="current-tk-data" class="row-data" style="font-size:14px;width:200px;text-align:right"><?php echo number_format((float)str_replace(',', '', $current_tk), 2, '.', ','); ?></td>
+                <td class="row-data" style="font-size:14px;width:150px;text-align: center;">Current HS</td>
+                <td id="current-hs-data" class="row-data data-edit" style="font-size:14px;width:80px;text-align: right;" contenteditable="true"><?php echo number_format((float)str_replace(',', '', $current_hs), 2, '.', ','); ?></td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
                 <td id="" class="row-data" style="font-size:14px;width:150px;"> &nbsp;</td>
             </tr>

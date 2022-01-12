@@ -3,7 +3,7 @@
 const DEVELOPMENT_HOST = array('tk.io');
 
 # Database Credentials
-if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1' || in_array($_SERVER['HTTP_HOST'], DEVELOPMENT_HOST)) {
+if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1' || in_array($_SERVER['HTTP_HOST'], DEVELOPMENT_HOST) || isset($_SERVER['PHP_IDE_CONFIG'])) {
 
     define('HOSTNAME', 'mysql');
     define('DB_USER', 'root');

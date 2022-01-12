@@ -1,0 +1,19 @@
+11/01/2022 07:04:13 | DELETE ( Deposit -  1) | NAM
+ ### Date   : 11/01/22
+ ### Item   : kosong
+ ### Amount : kosong
+ ### Note   : kosong
+
+11/01/2022 07:04:08 | DELETE ( Deposit -  1) | NAM
+ ### Date   : 11/01/22
+ ### Item   : Deposit 1
+ ### Amount : 1500.00
+ ### Note   : Pumping some money
+
+11/01/2022 07:04:05 | DELETE ( Deposit -  2) | NAM
+ ### Date   : 11/01/22
+ ### Item   : gfghfh
+ ### Amount : 500.00
+ ### Note   : fdcghfhg
+
+
