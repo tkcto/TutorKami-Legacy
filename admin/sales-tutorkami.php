@@ -231,8 +231,7 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                 method: "POST",
                 data: {action: 'ExportExcel', id: id},
                 success: function (result) {
-                    window.open('https://www.tutorkami.com/plugins/PHPExcel-1.8/test.php?id=' + id, '_blank');
-                    //https://www.tutorkami.com/plugins/PHPExcel-1.8/test.php?id=1
+                    window.open('/plugins/PHPExcel-1.8/test.php?id=' + id, '_blank');
                 }
             });
         }
