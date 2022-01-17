@@ -2503,9 +2503,7 @@ $objPHPExcel->createSheet();
 // START Summary
 
 $Summary = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' GROUP BY tab_name ORDER BY tab_name ASC ");
-
 $num = mysqli_num_rows($Summary);
-
 
 $objPHPExcel->getActiveSheet()->freezePane('D2');
 $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
@@ -2535,7 +2533,6 @@ $Mar = $Feb + 7;
 $Apr = $Mar + 7;
 
 $May = $Apr + 7;
-
 
 $Jun = $May + 7;
 
@@ -2616,7 +2613,7 @@ while ($row = mysqli_fetch_array($Summary)) {
         $Before = number_format((float)$rowT['total'], 2, '.', '');
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Jan' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Jan' AND row_no != '0' AND no11 LIKE '%rtc%' ");
     while ($rowT = mysqli_fetch_array($RefundSql)) {
         $Refund = number_format((float)$rowT['total'], 2, '.', '');
     }
@@ -2727,7 +2724,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jan' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jan' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -2740,7 +2737,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jan' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jan' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -2804,7 +2801,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Feb' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Feb' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -2935,7 +2932,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Feb' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Feb' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -2948,7 +2945,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Feb' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Feb' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3017,7 +3014,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Mar' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Mar' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -3146,7 +3143,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Mar' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Mar' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3159,7 +3156,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Mar' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Mar' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3228,7 +3225,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Apr' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Apr' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -3357,7 +3354,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Apr' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Apr' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3370,7 +3367,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Apr' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Apr' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3440,7 +3437,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'May' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'May' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -3572,7 +3569,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'May' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'May' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3585,7 +3582,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'May' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'May' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3655,7 +3652,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Jun' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Jun' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -3783,7 +3780,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jun' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jun' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3796,7 +3793,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jun' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jun' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -3866,7 +3863,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Jul' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Jul' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -3995,7 +3992,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jul' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jul' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4008,7 +4005,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jul' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Jul' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4077,7 +4074,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Aug' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Aug' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -4207,7 +4204,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Aug' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Aug' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4220,7 +4217,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Aug' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Aug' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4289,7 +4286,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Sep' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Sep' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -4418,7 +4415,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Sep' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Sep' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4431,7 +4428,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Sep' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Sep' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4501,7 +4498,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Oct' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Oct' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -4630,7 +4627,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Oct' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Oct' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4643,7 +4640,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Oct' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Oct' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4713,7 +4710,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Nov' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Nov' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -4843,7 +4840,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Nov' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Nov' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4856,7 +4853,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Nov' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Nov' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -4926,7 +4923,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Dec' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND tab_name = '" . $tab_name . "' AND month = 'Dec' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundSql)) {
 
@@ -5054,7 +5051,7 @@ while ($row = mysqli_fetch_array($Summary)) {
 
     }
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Dec' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Dec' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
@@ -5067,7 +5064,7 @@ while ($row = mysqli_fetch_array($Summary)) {
     $sumTTPTotal = number_format((float)$totalRefundTotal, 2, '.', '');
 
 
-    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Dec' AND row_no != '0' AND no11 LIKE '%rts%' ");
+    $RefundTotalSql = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $_GET['id'] . "' AND month = 'Dec' AND row_no != '0' AND no11 LIKE '%rtc%' ");
 
     while ($rowT = mysqli_fetch_array($RefundTotalSql)) {
 
