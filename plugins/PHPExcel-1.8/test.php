@@ -2623,7 +2623,13 @@ while ($row = mysqli_fetch_array($Summary)) {
     $GP = number_format((float)($sumRevenue - $Before), 2, '.', '');
 
     $BPercen = $sumRevenue - $Before;
-    $BPercen = (($BPercen / $sumRevenue) * 100);
+
+    if(((float)$sumRevenue) != 0.0) {
+        $BPercen = (($BPercen / $sumRevenue) * 100);
+    } else {
+        $BPercen = 0.0;
+    }
+
     $Percen = number_format((float)$BPercen, 2, '.', '') . '%';
 
     if ($Percen == 'nan%') {

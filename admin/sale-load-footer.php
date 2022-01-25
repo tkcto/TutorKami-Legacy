@@ -81,21 +81,57 @@ if(isset($_POST['dataFooter'])){
             </td>
             
             <td class="table-header" style="font-size:14px;width:80px;text-align: right;border-right: 1px solid black;border-left: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;">
-			  <?PHP  
-				$no4 = 0;
-				$no7 = 0;
-				$rf = 0;
-				$Total = 0;								$no5 = 0;								//SELECT (SUM(no4) - SUM(no7)) as total FROM tk_sales_sub WHERE main_id = '1' AND tab_name = 'Nadia' AND month = 'Aug' AND no7 != '' AND row_no != '' AND row_no != '0';
-				$sqlSum = " SELECT (SUM(no4) - SUM(no7)) as total FROM tk_sales_sub WHERE main_id = '".$dataFooter['mainID']."' AND tab_name = '".$dataFooter['tab']."' AND month = '".$dataFooter['month']."' AND no7 != '' AND row_no != '0' AND row_no != '' ";
-				$resultSum = $conn->query($sqlSum);
-				if ($resultSum->num_rows > 0) {
-					while($rowSum = $resultSum->fetch_assoc()){
-						$no4 = number_format((float)$rowSum['total'], 2, '.', '');  
-					}
-				}
-				//SELECT sum(no4) FROM tk_sales_sub as tk WHERE EXISTS (SELECT no2 FROM tk_sales_sub as t WHERE t.no2 = tk.no2 AND no7 != '' ) AND no3 = 'R.F' AND main_id = '1' AND tab_name = 'Ain' AND month = 'Oct'
-				$sqlSum = " SELECT SUM(no4) as total FROM tk_sales_sub as tk WHERE EXISTS (SELECT no2 FROM tk_sales_sub as t WHERE t.no2 = tk.no2 AND no7 != '' AND no5 NOT LIKE '%trial%' ) AND main_id = '".$dataFooter['mainID']."' AND tab_name = '".$dataFooter['tab']."' AND month = '".$dataFooter['month']."' AND no3 = 'R.F' AND row_no != '0' AND row_no != '' ";				$resultSum = $conn->query($sqlSum);				if ($resultSum->num_rows > 0) {					while($rowSum = $resultSum->fetch_assoc()){						$no5 = number_format((float)$rowSum['total'], 2, '.', '');  					}				}				$Total =  $no4 + $no5;								echo number_format((float)$Total,2);								//SELECT sum(t.no4) FROM tk_sales_sub as tk inner join (SELECT * FROM tk_sales_sub WHERE main_id = '1' AND tab_name = 'Nadia' AND month = 'Sep' AND no7 = '' AND row_no = '999999') as t on t.id = tk.id WHERE tk.no2 = t.no2 AND t.no3 = 'R.F'				//$sqlSum = " SELECT SUM(t.no4) as total FROM tk_sales_sub as tk inner join (SELECT * FROM tk_sales_sub WHERE main_id = '".$dataFooter['mainID']."' AND tab_name = '".$dataFooter['tab']."' AND month = '".$dataFooter['month']."' AND no7 = '' AND row_no = '999999') as t on t.id = tk.id WHERE tk.no2 = t.no2 AND t.no3 = 'R.F' ";												//$resultSum = $conn->query($sqlSum);				//if ($resultSum->num_rows > 0) {										//while($rowSum = $resultSum->fetch_assoc()){						//$cf = number_format((float)$rowSum['SUM(t.no4)'], 2, '.', '');  												//echo $cf;					//}				//}								
-																						  ?>
+
+               <?php
+
+               $equal = 0;
+               $rf = 0;
+               $equal2 = 0;
+               $equal3 = 0;
+
+               $sqlSum = " SELECT SUM(no4) as total FROM tk_sales_sub WHERE main_id = '" . $dataFooter['mainID'] . "' AND tab_name = '" . $dataFooter['tab'] . "' AND month = '" . $dataFooter['month'] . "' AND no7 != '' AND row_no != '0' ";
+               $resultSum = $conn->query($sqlSum);
+
+               if ($resultSum->num_rows > 0) {
+                   while ($rowSum = $resultSum->fetch_assoc()) {
+                       $equal = number_format((float)$rowSum['total'], 2, '.', '');
+                   }
+               }
+
+               $sqlSum = " SELECT * FROM tk_sales_sub WHERE main_id = '" . $dataFooter['mainID'] . "' AND tab_name = '" . $dataFooter['tab'] . "' AND month = '" . $dataFooter['month'] . "' AND no3 = 'R.F' AND row_no != '0' ";
+               $resultSum = $conn->query($sqlSum);
+
+               if ($resultSum->num_rows > 0) {
+
+                   while ($rowSum = $resultSum->fetch_assoc()) {
+                       $sqlSum2 = " SELECT * FROM tk_sales_sub WHERE id != '" . $rowSum['id'] . "' AND no1 = '" . $rowSum['no1'] . "' AND no2 = '" . $rowSum['no2'] . "' AND main_id = '" . $dataFooter['mainID'] . "' AND tab_name = '" . $dataFooter['tab'] . "' AND month = '" . $dataFooter['month'] . "' AND row_no != '0' ";
+                       $resultSum2 = $conn->query($sqlSum2);
+
+                       if ($resultSum2->num_rows > 0) {
+                           $rowSum2 = $resultSum2->fetch_assoc();
+
+                           if ($rowSum2['no6'] != '' && $rowSum2['no7'] != '') {
+                               $rf += $rowSum['no4'];
+                           }
+                       }
+
+                   }
+               }
+
+               $sqlSum = " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $dataFooter['mainID'] . "' AND tab_name = '" . $dataFooter['tab'] . "' AND month = '" . $dataFooter['month'] . "' AND no7 != '' AND row_no != '0' ";
+               $resultSum = $conn->query($sqlSum);
+
+               if ($resultSum->num_rows > 0) {
+                   while ($rowSum = $resultSum->fetch_assoc()) {
+                       $equal2 = number_format((float)$rowSum['total'], 2, '.', '');
+                   }
+               }
+
+               $equal3 = (($equal - $equal2) + $rf);
+               echo number_format((float)$equal3, 2);
+
+                ?>
+
             </td>
             <td class="table-header" style="font-size:14px;width:50px;border-right: 1px solid black;border-left: 1px solid black;border-top: 1px solid black;border-bottom: 1px solid black;">
             <?PHP
@@ -103,7 +139,7 @@ if(isset($_POST['dataFooter'])){
                 $resultSum = $conn->query($sqlSum);
                 if ($resultSum->num_rows > 0) {
                     while($rowSum = $resultSum->fetch_assoc()){
-                        echo number_format($rowSum['total']);  
+                        echo number_format($rowSum['total'], 2, '.', ',');
                     }
                 }
             ?>
