@@ -287,9 +287,9 @@ function tutorLogin() {
                             window.location = sessionURL; 
                         }else{
                             if(path == 'my/tutor-login'){
-                                window.location = "https://www.tutorkami.com/my/tutor"; 
+                                window.location = "/my/tutor";
                             }else{
-                                window.location = "https://www.tutorkami.com/tutor"; 
+                                window.location = "/tutor";
                             }                                
                         }
 
