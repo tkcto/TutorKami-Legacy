@@ -478,6 +478,7 @@ if ( $conDB->query($updateLastPage) === TRUE ) {}
 
 $queryID = '';
 $TutorPhone = '';
+$pvName = '';
 $queryUser = "SELECT * FROM tk_user 
 INNER JOIN tk_user_details ON ud_u_id = u_id
 WHERE u_email='$arrJb[j_hired_tutor_email]'";
@@ -487,6 +488,7 @@ if ($resultUser->num_rows > 0) {
 	$queryID =  $rowUser['u_id'];
 	$TutorPhone =  $rowUser['ud_phone_number'];
 	$pvName = str_replace(' ', '-', $rowUser['resit_pv_name']);
+    $pvName = str_replace("'", '', $pvName);
 }
 $queryParent = "SELECT * FROM tk_user WHERE u_email='$arrJb[j_email]'";
 $resultParent = $conDB->query($queryParent);
@@ -844,9 +846,6 @@ if( isset($_SESSION["tempCreateClasses"]) && $_SESSION["tempCreateClasses"] != '
   <div class="btn-group">
 	  <button class="btn <?PHP echo $className; ?> sign-btn-box mrg-right-15 dropdown-toggle" type="button" data-toggle="dropdown">Sent ( <?PHP echo $words = preg_replace('/[0-9]+/', '', strtoupper($arrJb['send_rate'])); //echo strtoupper($arrJb['send_rate']) ?> ) <span class="caret"></span></button>
 	  <ul class="dropdown-menu">
-		  <!--<li onclick="getLink(this.id, 'https://www.tutorkami.com/my/parent_review?step=1&tutor_id=<?php //echo $queryID;?>&parent_id=<?php //echo $queryParentID;?>&job_id=<?php //echo $arrJb['j_id'];?>')" id="bm"><a>BM</a></li>
-		  <li onclick="getLink(this.id, 'https://www.tutorkami.com/parent_review?step=1&tutor_id=<?php //echo $queryID;?>&parent_id=<?php //echo $queryParentID;?>&job_id=<?php //echo $arrJb['j_id'];?>')" id="bi"><a>English</a></li>-->
-		  
 		  <li onclick="getLink(this.id, 'https://www.tutorkami.com/my/client_review?/<?php echo $arrJb['j_id'];?>/<?php echo $pvName;?>')" id="bm"><a>BM</a></li>
 		  <li onclick="getLink(this.id, 'https://www.tutorkami.com/client_review?/<?php echo $arrJb['j_id'];?>/<?php echo $pvName;?>')" id="bi"><a>English</a></li>
 		  <?PHP
