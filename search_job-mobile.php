@@ -1593,23 +1593,12 @@ $resNoti = $queryNoti->num_rows;
     <!--<div class="toggle"> &nbsp;&nbsp;<i class="fa fa-times" id="iconclose"></i> Announcement &nbsp;&nbsp; </div>-->
     <div class="scroll">
 		<!--<div class="par"><p><?PHP //echo $rowNoti['text']; ?></p></div>-->
-        <button id="no1" type="button" class="btn btn-custom" >Sharing </button>
-        <button id="no2" type="button" class="btn btn-default" >WA Group </button>
-        <button id="no3" type="button" class="btn btn-default" >Profile </button>
+        <button id="no1" type="button" class="btn btn-custom" >WA Group </button>
+        <button id="no2" type="button" class="btn btn-default" >Profile </button>
+
         <div style="margin-top:10px;"></div>
 
         <div id="content1" class="collapse in">
-
-            <div class="par">
-                <p><strong>Sesi sharing percuma</strong></p>
-                <p>Anda nak beli rumah tapi tak pasti jika freelance tutor boleh apply loan rumah? Sertai sesi sharing online pada 10 Mac ini. </p>
-                <p>Klik link di bawah untuk info:</p>
-                <p><a href="https://bit.ly/35IV4v0">https://bit.ly/35IV4v0</a></p>
-            </div>
-
-        </div>
-
-        <div id="content2" class="hidden">
 
             <div class="par">
                 <p><strong><a href="https://chat.whatsapp.com/KCwZftki5fK7ny2RMRmORq" target="_blank">What’s App Group</a></strong></p>
@@ -1619,7 +1608,7 @@ $resNoti = $queryNoti->num_rows;
 
         </div>
 
-        <div id="content3" class="hidden">
+        <div id="content2" class="hidden">
 
             <div class="par">
                 </p><p><a href="https://www.tutorkami.com/tuition/tutor-video-profile/" target="_blank"><strong>Memperkenalkan: Video Profil &nbsp;</strong></a></p>
