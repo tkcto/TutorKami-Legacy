@@ -69,6 +69,7 @@ $rowState = $queryState->num_rows;
 	<link href="css/bootstrap.min.css" rel="stylesheet">-->
 	<link href="css-pricing/assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="css-pricing/assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<!-- CSS Just for demo purpose, don't include it in your project 
 	<link href="css-pricing/assets/css/demo.css" rel="stylesheet" />-->
