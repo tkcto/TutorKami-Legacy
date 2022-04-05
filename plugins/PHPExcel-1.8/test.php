@@ -101,7 +101,7 @@ foreach ($TotalUser as $data) {
     $objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 
 
-    // START Aisyah
+    // START user
     $objPHPExcel->setActiveSheetIndex($loopUser);
     $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Date');
     $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Job');
@@ -119,9 +119,7 @@ foreach ($TotalUser as $data) {
     $objPHPExcel->getActiveSheet()->setCellValue('L1', 'Note');
     $objPHPExcel->getActiveSheet()->getStyle('A1:L1')->applyFromArray($styleTitle);
 
-
     $newLineJan = $newLineFeb = $newLineMar = $newLineApr = $newLineMay = $newLineJun = $newLineJul = $newLineAug = $newLineSep = $newLineOct = $newLineNov = $newLineDec = 1;
-
 
     $Jan = 4;
     $xx = $Jan - 1;
@@ -129,9 +127,7 @@ foreach ($TotalUser as $data) {
     $objPHPExcel->getActiveSheet()->getStyle("A$xx")->applyFromArray($styleArray);
     $objPHPExcel->getActiveSheet()->getStyle("A$xx:L$xx")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('217346');
 
-
     $previousValue = '';
-
     while ($rowJan = mysqli_fetch_array($ThisJan)) {
 
         if ($rowJan['row_no'] != '999999') {
@@ -160,16 +156,27 @@ foreach ($TotalUser as $data) {
         $totalGP = (float)$rowJan['no4'] - (float)$rowJan['no7'];
 
         if ($rowJan['no3'] == 'R.F') {
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-            $rowPre = mysqli_fetch_array($sqlPre);
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowJan['id'] .
+                "' AND no1 = '" . $rowJan['no1'] . "' AND no2 = '" . $rowJan['no2'] . "' AND main_id = '" .
+                $rowJan['main_id'] . "' AND tab_name = '" . $rowJan['tab_name'] . "' AND month = '" .
+                $rowJan['month'] . "' AND row_no != '0' "
+            );
 
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Jan", sprintf("%0.2f", $rowJan['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            $isTutorPaid = false;
+
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
+            }
+
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Jan", sprintf("%0.2f", $rowJan['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
             } else {
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Jan", '');
             }
         } else {
-
             if ($rowJan['no6'] == '' && $rowJan['no7'] == '') {
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Jan", '');
             } else {
@@ -282,15 +289,26 @@ foreach ($TotalUser as $data) {
         $totalGP = (float)$rowFeb['no4'] - (float)$rowFeb['no7'];
 
         if ($rowFeb['no3'] == 'R.F') {
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-            $rowPre = mysqli_fetch_array($sqlPre);
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowFeb['id'] .
+                "' AND no1 = '" . $rowFeb['no1'] . "' AND no2 = '" . $rowFeb['no2'] . "' AND main_id = '" .
+                $rowFeb['main_id'] . "' AND tab_name = '" . $rowFeb['tab_name'] . "' AND month = '" .
+                $rowFeb['month'] . "' AND row_no != '0' "
+            );
 
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Feb", sprintf("%0.2f", $rowFeb['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            $isTutorPaid = false;
+
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
+            }
+
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Feb", sprintf("%0.2f", $rowFeb['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
             } else {
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Feb", '');
             }
-
         } else {
 
             if ($rowFeb['no6'] == '' && $rowFeb['no7'] == '') {
@@ -377,9 +395,7 @@ foreach ($TotalUser as $data) {
     $objPHPExcel->getActiveSheet()->getStyle("A$xx:L$xx")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('217346');
 
     $previousValue = '';
-
     while ($rowMar = mysqli_fetch_array($ThisMar)) {
-
         if ($rowMar['row_no'] != '999999') {
             if ($newLineMar == 1) {
                 $Mar++;
@@ -403,14 +419,25 @@ foreach ($TotalUser as $data) {
             $objPHPExcel->getActiveSheet()->setCellValue("I$Mar", sprintf("%0.2f", $rowMar['no7']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
         }
 
-        $totalGP = $rowMar['no4'] - $rowMar['no7'];
-
         if ($rowMar['no3'] == 'R.F') {
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-            $rowPre = mysqli_fetch_array($sqlPre);
 
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Mar", sprintf("%0.2f", $rowMar['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowMar['id'] .
+                "' AND no1 = '" . $rowMar['no1'] . "' AND no2 = '" . $rowMar['no2'] . "' AND main_id = '" .
+                $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" .
+                $rowMar['month'] . "' AND row_no != '0' "
+            );
+
+            $isTutorPaid = false;
+
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
+            }
+
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Mar", sprintf("%0.2f", $rowMar['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
             } else {
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Mar", '');
             }
@@ -419,6 +446,7 @@ foreach ($TotalUser as $data) {
             if ($rowMar['no6'] == '' && $rowMar['no7'] == '') {
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Mar", '');
             } else {
+                $totalGP = floatval($rowMar['no4']) - floatval($rowMar['no7']);
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Mar", sprintf("%0.2f", $totalGP), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
             }
         }
@@ -442,41 +470,58 @@ foreach ($TotalUser as $data) {
         $rowSumPaidTutor = mysqli_fetch_assoc($SumPaidTutor);
         $sumSumPaidTutor = $rowSumPaidTutor['value_sum'];
 
-
         $no4 = 0;
         $no7 = 0;
         $rf = 0;
         $Total = 0;
 
-        $sqlSum = mysqli_query($conn, " SELECT SUM(no4) as total FROM tk_sales_sub WHERE main_id = '" . $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] . "' AND no7 != '' AND row_no != '0' ");
+        $sqlSum = mysqli_query($conn,
+            "SELECT SUM(no4) as total FROM tk_sales_sub WHERE main_id = '" . $rowMar['main_id'] .
+            "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] .
+            "' AND no7 != '' AND row_no != '0' "
+        );
+
+        $rowSum = mysqli_fetch_array($sqlSum);
+        $no4 = number_format((float)$rowSum['total'], 2, '.', '');
+
+        # RF calculation
+        $sqlSum = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE main_id = '" . $rowMar['main_id'] .
+            "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] .
+            "' AND no3 = 'R.F' AND row_no != '0' "
+        );
 
         while ($rowSum = mysqli_fetch_array($sqlSum)) {
-            $no4 = number_format((float)$rowSum['total'], 2, '.', '');
-        }
 
-        $sqlSum = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE main_id = '" . $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] . "' AND no3 = 'R.F' AND row_no != '0' ");
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowSum['id'] .
+                "' AND no1 = '" . $rowSum['no1'] . "' AND no2 = '" . $rowSum['no2'] . "' AND main_id = '" .
+                $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" .
+                $rowMar['month'] . "' AND row_no != '0' "
+            );
 
-        while ($rowSum = mysqli_fetch_array($sqlSum)) {
-            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowSum['id'] . "' AND no1 = '" . $rowSum['no1'] . "' AND no2 = '" . $rowSum['no2'] . "' AND main_id = '" . $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] . "' AND row_no != '0' ");
-            $rowSum3 = mysqli_fetch_array($sqlSum2);
-
-            if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
-                $rf += $rowSum['no4'];
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $rf += $rowSum['no4'];
+                    break;
+                }
             }
         }
 
-        $sqlSum = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" . $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] . "' AND no7 != '' AND row_no != '0'  ");
+        $sqlSum = mysqli_query($conn, " SELECT SUM(no7) as total FROM tk_sales_sub WHERE main_id = '" .
+            $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" .
+            $rowMar['month'] . "' AND no7 != '' AND row_no != '0'  "
+        );
 
-        while ($rowSum = mysqli_fetch_array($sqlSum)) {
-            $no7 = number_format((float)$rowSum['total'], 2, '.', '');
-        }
+        $rowSum = mysqli_fetch_array($sqlSum);
+        $no7 = number_format((float)$rowSum['total'], 2, '.', '');
 
         $sumSumGP = (($no4 - $no7) + $rf);
+
         $SumHour = mysqli_query($conn, " SELECT SUM(no10) AS value_sum FROM tk_sales_sub WHERE main_id = '" . $rowMar['main_id'] . "' AND tab_name = '" . $rowMar['tab_name'] . "' AND month = '" . $rowMar['month'] . "'  ");
         $rowSumHour = mysqli_fetch_assoc($SumHour);
         $sumSumHour = $rowSumHour['value_sum'];
         $previousValue = $rowMar['id'];
     }
+
 
     $objPHPExcel->getActiveSheet()->getCell("A$Mar")->setValue('TOTAL');
     $objPHPExcel->getActiveSheet()->setCellValue("D$Mar", sprintf("%0.2f", $sumSumAmount), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
@@ -497,7 +542,6 @@ foreach ($TotalUser as $data) {
     $objPHPExcel->getActiveSheet()->getStyle("A$xx:L$xx")->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('217346');
 
     $previousValue = '';
-
     while ($rowApr = mysqli_fetch_array($ThisApr)) {
 
         if ($rowApr['row_no'] != '999999') {
@@ -524,14 +568,26 @@ foreach ($TotalUser as $data) {
             $objPHPExcel->getActiveSheet()->setCellValue("I$Apr", sprintf("%0.2f", $rowApr['no7']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
         }
 
-        $totalGP = $rowApr['no4'] - $rowApr['no7'];
+        $totalGP = floatval($rowApr['no4']) - floatval($rowApr['no7']);
 
         if ($rowApr['no3'] == 'R.F') {
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-            $rowPre = mysqli_fetch_array($sqlPre);
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowApr['id'] .
+                "' AND no1 = '" . $rowApr['no1'] . "' AND no2 = '" . $rowApr['no2'] . "' AND main_id = '" .
+                $rowApr['main_id'] . "' AND tab_name = '" . $rowApr['tab_name'] . "' AND month = '" .
+                $rowApr['month'] . "' AND row_no != '0' "
+            );
 
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Apr", sprintf("%0.2f", $rowApr['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            $isTutorPaid = false;
+
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
+            }
+
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Apr", sprintf("%0.2f", $rowApr['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
             } else {
                 $objPHPExcel->getActiveSheet()->setCellValue("J$Apr", '');
             }
@@ -719,23 +775,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowMay['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowMay['id'] .
+                "' AND no1 = '" . $rowMay['no1'] . "' AND no2 = '" . $rowMay['no2'] . "' AND main_id = '" .
+                $rowMay['main_id'] . "' AND tab_name = '" . $rowMay['tab_name'] . "' AND month = '" .
+                $rowMay['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$May", sprintf("%0.2f", $rowMay['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$May", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$May", sprintf("%0.2f", $rowMay['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$May", '');
+            }
         } else {
 
             if ($rowMay['no6'] == '' && $rowMay['no7'] == '') {
@@ -930,23 +989,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowJun['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowJun['id'] .
+                "' AND no1 = '" . $rowJun['no1'] . "' AND no2 = '" . $rowJun['no2'] . "' AND main_id = '" .
+                $rowJun['main_id'] . "' AND tab_name = '" . $rowJun['tab_name'] . "' AND month = '" .
+                $rowJun['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Jun", sprintf("%0.2f", $rowJun['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Jun", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Jun", sprintf("%0.2f", $rowJun['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Jun", '');
+            }
         } else {
 
             if ($rowJun['no6'] == '' && $rowJun['no7'] == '') {
@@ -1141,23 +1203,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowJul['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowJul['id'] .
+                "' AND no1 = '" . $rowJul['no1'] . "' AND no2 = '" . $rowJul['no2'] . "' AND main_id = '" .
+                $rowJul['main_id'] . "' AND tab_name = '" . $rowJul['tab_name'] . "' AND month = '" .
+                $rowJul['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Jul", sprintf("%0.2f", $rowJul['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Jul", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Jul", sprintf("%0.2f", $rowJul['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Jul", '');
+            }
         } else {
 
             if ($rowJul['no6'] == '' && $rowJul['no7'] == '') {
@@ -1352,23 +1417,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowAug['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowAug['id'] .
+                "' AND no1 = '" . $rowAug['no1'] . "' AND no2 = '" . $rowAug['no2'] . "' AND main_id = '" .
+                $rowAug['main_id'] . "' AND tab_name = '" . $rowAug['tab_name'] . "' AND month = '" .
+                $rowAug['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Aug", sprintf("%0.2f", $rowAug['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Jul", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Aug", sprintf("%0.2f", $rowAug['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Aug", '');
+            }
         } else {
 
             if ($rowAug['no6'] == '' && $rowAug['no7'] == '') {
@@ -1563,23 +1631,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowSep['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowSep['id'] .
+                "' AND no1 = '" . $rowSep['no1'] . "' AND no2 = '" . $rowSep['no2'] . "' AND main_id = '" .
+                $rowSep['main_id'] . "' AND tab_name = '" . $rowSep['tab_name'] . "' AND month = '" .
+                $rowSep['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Sep", sprintf("%0.2f", $rowSep['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Sep", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Sep", sprintf("%0.2f", $rowSep['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Sep", '');
+            }
         } else {
 
             if ($rowSep['no6'] == '' && $rowSep['no7'] == '') {
@@ -1774,23 +1845,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowOct['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowOct['id'] .
+                "' AND no1 = '" . $rowOct['no1'] . "' AND no2 = '" . $rowOct['no2'] . "' AND main_id = '" .
+                $rowOct['main_id'] . "' AND tab_name = '" . $rowOct['tab_name'] . "' AND month = '" .
+                $rowOct['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Oct", sprintf("%0.2f", $rowOct['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Oct", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Oct", sprintf("%0.2f", $rowOct['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Oct", '');
+            }
         } else {
 
             if ($rowOct['no6'] == '' && $rowOct['no7'] == '') {
@@ -1985,23 +2059,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowNov['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowNov['id'] .
+                "' AND no1 = '" . $rowNov['no1'] . "' AND no2 = '" . $rowNov['no2'] . "' AND main_id = '" .
+                $rowNov['main_id'] . "' AND tab_name = '" . $rowNov['tab_name'] . "' AND month = '" .
+                $rowNov['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Nov", sprintf("%0.2f", $rowNov['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Nov", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Nov", sprintf("%0.2f", $rowNov['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Nov", '');
+            }
         } else {
 
             if ($rowNov['no6'] == '' && $rowNov['no7'] == '') {
@@ -2196,23 +2273,26 @@ foreach ($TotalUser as $data) {
 
 
         if ($rowDec['no3'] == 'R.F') {
+            $sqlSum2 = mysqli_query($conn, " SELECT * FROM tk_sales_sub WHERE id != '" . $rowDec['id'] .
+                "' AND no1 = '" . $rowDec['no1'] . "' AND no2 = '" . $rowDec['no2'] . "' AND main_id = '" .
+                $rowDec['main_id'] . "' AND tab_name = '" . $rowDec['tab_name'] . "' AND month = '" .
+                $rowDec['month'] . "' AND row_no != '0' "
+            );
 
+            $isTutorPaid = false;
 
-            $sqlPre = mysqli_query($conn, " SELECT id, no6, no7 FROM tk_sales_sub WHERE id = '" . $previousValue . "' ");
-
-            $rowPre = mysqli_fetch_array($sqlPre);
-
-            if ($rowPre['no6'] != '' && $rowPre['no7'] != '') {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Dec", sprintf("%0.2f", $rowDec['no9']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-
-            } else {
-
-                $objPHPExcel->getActiveSheet()->setCellValue("J$Dec", '');
-
+            while($rowSum3 = mysqli_fetch_array($sqlSum2)) {
+                if ($rowSum3['no6'] != '' && $rowSum3['no7'] != '') {
+                    $isTutorPaid = true;
+                    break;
+                }
             }
 
-
+            if($isTutorPaid) {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Dec", sprintf("%0.2f", $rowDec['no4']), true)->getStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+            } else {
+                $objPHPExcel->getActiveSheet()->setCellValue("J$Dec", '');
+            }
         } else {
 
             if ($rowDec['no6'] == '' && $rowDec['no7'] == '') {
