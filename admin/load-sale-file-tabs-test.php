@@ -120,6 +120,15 @@ if (isset($_GET['requiredid'])) {
             left: 60%;
             transform: translate(-50%, -50%);
         }
+		
+		.topRight {
+            position: fixed;
+            top: 5%;
+            right: -5%;
+            transform: translate(-50%, -50%);
+			position: fixed;
+			z-index: 999;
+        }
 
         #confirmBox2 {
             display: none;
@@ -255,6 +264,95 @@ if (isset($_GET['requiredid'])) {
                 transform: scale(1.0);
             }
         }
+		
+		/* Tooltip container */
+		.tooltip {
+			  position: relative;
+			  display: inline-block;
+			  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+		}
+
+		/* Tooltip text */
+		.tooltip .tooltiptext {
+			  visibility: hidden;
+			  width: 120px;
+			  background-color: black;
+			  color: #fff;
+			  text-align: center;
+			  padding: 5px 0;
+			  border-radius: 6px;
+			 
+			  /* Position the tooltip text - see examples below! */
+			  position: absolute;
+			  z-index: 1;
+		}
+
+		/* Show the tooltip text when you mouse over the tooltip container */
+		.tooltip:hover .tooltiptext {
+			  visibility: visible;
+		}
+		
+		 #confirm {
+            display: none;
+            background-color: #333;
+            border: 1px solid #aaa;
+            position: fixed;
+            width: 250px;
+            left: 50%;
+            margin-left: -100px;
+            padding: 6px 8px 8px;
+            box-sizing: border-box;
+            text-align: center;
+         }
+         #confirm button {
+            background-color: #48E5DA;
+            display: inline-block;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            padding: 5px;
+            text-align: center;
+            width: 80px;
+            cursor: pointer;
+         }
+         #confirm .message {
+            text-align: left;
+         }
+		 
+		 #confirmBox3 {
+            display: none;
+            background-color: #333;
+            border-radius: 5px;
+            width: 300px;
+            margin-top: 90px;
+            margin-left: -150px;
+            padding: 6px 8px 8px;
+            box-sizing: border-box;
+            text-align: center;
+            position: fixed;
+        }
+
+        #confirmBox3 .button {
+            background-color: white;
+            display: inline-block;
+            border-radius: 3px;
+            padding: 2px;
+            text-align: center;
+            width: 95px;
+            cursor: pointer;
+        }
+
+        #confirmBox3 .button:hover {
+            background-color: white;
+        }
+
+        #confirmBox3 .message {
+            text-align: Center;
+            margin-bottom: 8px;
+			 background-color: #333;
+			 color: #fff;
+			 font-weight: bold;
+			 font-size: 14px;
+        }
     </style>
 
 
@@ -284,7 +382,7 @@ if (isset($_GET['requiredid'])) {
 
     <input type="hidden" class="form-control" id="mainID" value="<?PHP echo $_GET['requiredid']; ?>">
 
-    <div class="centered scrollTop" id="confirmBox">
+    <div class="centered scrollTop" id="confirmBox"> 		
         <div class="message"></div>
         <span class="button yes">Carry Forward </span>
         <span class="button no">Add Row</span>
@@ -297,6 +395,16 @@ if (isset($_GET['requiredid'])) {
         <span class="button undo">Undo</span>
         <span class="button cancel" style="margin-top:4px;">Cancel</span>
     </div>
+	<div class="topRight scrollTop" id="confirmBox3">
+        <div class="message"></div>
+        <span class="button yes">Yes</span>
+        <span class="button no">No</span>
+   </div>
+	<!--<div id="confirm">
+		<div class="message"></div>
+		<button class="yes">Yes</button>
+		<button class="no">No</button>
+	</div> -->
     <div class="centered scrollTop" id="confirmBoxLastRow">
         <div class="message"></div>
         <span class="button yes">Carry Forward </span>
@@ -307,21 +415,29 @@ if (isset($_GET['requiredid'])) {
         <div id="loading-imgBG"></div>
     </div>
 
-
+	<!-- Modded by Hidayat: To Achieve remove unused tab (11/12/2022 1:08AM) -->
     <div class="modal fade" id="myModalAddTab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="TabInput">Tab Name </label>
-                            <input type="text" class="form-control" id="TabInput" aria-describedby="TabHelp" placeholder="eg : Example">
+                            <label for="TabInput">Add User / Category Tab</label>
+                            <input type="text" class="form-control" id="TabInput" aria-describedby="TabHelp" placeholder="Add any user Eg: Ali">
+							<button onclick="submitTab()" type="button" class="btn btn-rate">Submit</button>
+                        </div>
+                    </form>
+					<form>
+                        <div class="form-group">
+                            <label for="TabInput2">Remove User / Category Tab </label>
+                            <input type="text" class="form-control" id="TabInput2" aria-describedby="TabHelp" placeholder="Remove any user Eg: Abu">
+							<button onclick="submitTab2()" type="button" class="btn btn-rate">Submit</button>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button style="margin-top:4px;" type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
-                    <button onclick="submitTab()" type="button" class="btn btn-rate">Submit</button>
+                    
                 </div>
             </div>
         </div>
@@ -388,7 +504,10 @@ if (isset($_GET['requiredid'])) {
             <button type="button" class="hidden btnTabYear btn btn-default ">Year</button>
             <button type="button" class="hidden btnTabYearExp btn btn-default ">Year</button>
             <button type="button" class="hidden btnTabYearDep btn btn-default ">Year</button>
-
+			<!-- Added by Hidayat 11/12/2022 -->
+			<button  id="carryForwardAll" onclick = 'carryForwardAll()' type="button" class="btnTabCF btn btn-success" style="float: right;">
+               <span aria-label="Carry Forward To Next Month" data-balloon-pos="left"> CF </span>
+            </button>
             <div id="loadSaleData"></div>
             <br/>
             <button id="add-more" onClick="createNew();" type="button" class="btn btn-success-ori">
@@ -629,6 +748,7 @@ $conn->close();
         $(".btnTabYear").click(function () {
             $(this).addClass("active");
             $(".btnTabMonth").removeClass("active");
+			
 
             var mainID = document.getElementById('mainID').value;
             $.ajax({
@@ -812,6 +932,7 @@ $conn->close();
             $(".btnTabYearExp").addClass("hidden");
             $(".btnTabYearDep").addClass("hidden");
             $(".btnTabMonth").removeClass("hidden");
+			$(".btnTabCF").addClass("hidden");
 
             $(".btnTab").removeClass("active");
             $(".btnExpenses").removeClass("active");
@@ -841,6 +962,7 @@ $conn->close();
             $(".btnTabYear").addClass("hidden");
             $(".btnTabYearDep").addClass("hidden");
             $(".btnTabMonth").removeClass("hidden");
+			$(".btnTabCF").addClass("hidden");
 
             $(".btnTab").removeClass("active");
             $(".btnSummary").removeClass("active");
@@ -872,6 +994,7 @@ $conn->close();
             $(".btnTabYearExp").addClass("hidden");
             $(".btnTabYear").addClass("hidden");
             $(".btnTabMonth").removeClass("hidden");
+			$(".btnTabCF").addClass("hidden");
 
             $(".btnTab").removeClass("active");
             $(".btnSummary").removeClass("active");
@@ -902,6 +1025,7 @@ $conn->close();
             $(".btnTabYearExp").addClass("hidden");
             $(".btnTabYear").addClass("hidden");
             $(".btnTabMonth").addClass("hidden");
+			$(".btnTabCF").addClass("hidden");
 
             $(".btnTab").removeClass("active");
             $(".btnSummary").removeClass("active");
@@ -929,7 +1053,9 @@ $conn->close();
         });
 
         $(".btnSalesFile").click(function (){
+			$(".btnTabCF").addClass("active");
             $('#loadFile').load('load-sale-file.php');
+			
             let d = new Date();
             let year = d.getFullYear();
 
@@ -1620,7 +1746,7 @@ $conn->close();
     function carryForward2(editableObj, column, id, numTable) {
         var userSess = '<?php echo $_SESSION['tk']['u_id'];?>';
 
-        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081') {
+        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081' || userSess == '1584566') {
             $(".tempRowAdd").remove();
             $(".tempRowAddRF").remove();
             $("#add-more").show();
@@ -1642,7 +1768,49 @@ $conn->close();
             alert('Access Denied !');
         }
     }
+	// Added by Hidayat
+	function carryForwardAll(editableObj, column, id, numTable) {
+        var userSess = '<?php echo $_SESSION['tk']['u_id'];?>';
+		let btnTab = $(".btnTab.active").text();
+        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081' || userSess == '1584566') {
+            $(".tempRowAdd").remove();
+            $(".tempRowAddRF").remove();
+            $("#add-more").show();
 
+            document.getElementById('duplicateBtn').innerHTML = '';
+
+            doConfirmAll("Are you sure you want to carry forward all rows with empty GP for \r\n [ " + btnTab + "] to the next month?", function yes() {
+                    carryForwardConfirmAll(editableObj, column, id, numTable);
+             /*   }, function no() {
+                    addRowConfirm3(editableObj, column, id, numTable);*/
+                }, function cancel() {
+                    //alert('cancel');
+                }, function undo() {
+                    undoCF(editableObj, column, id, numTable);
+                    //alert('under development');
+                }
+            );
+        } else {
+            alert('Access Denied!');
+        }
+    }
+
+	    function doConfirmAll(msg, yesFn, noFn, cnFn, undoFn) {
+        var confirmBox = $("#confirmBox3");
+        confirmBox.find(".message").text(msg);
+
+        confirmBox.find(".yes,.no,.undo,.cancel").unbind().click(function () {
+            confirmBox.hide();
+        });
+
+        confirmBox.find(".yes").click(yesFn);
+        confirmBox.find(".no").click(noFn);
+        confirmBox.find(".undo").click(undoFn);
+        confirmBox.find(".cancel").click(cnFn);
+        confirmBox.show();
+    }
+	
+	//done
     function undoCF(editableObj, column, id, numTable) {
         $("#confirmBox2").hide();
 
@@ -1680,9 +1848,10 @@ $conn->close();
         confirmBox.find(".cancel").click(cnFn);
         confirmBox.show();
     }
+	
 
     function carryForwardConfirm2(editableObj, column, id, numTable) {
-        debugger;
+        //debugger;
         let mainID = document.getElementById('mainID').value;
         let btnTab = $(".btnTab.active").text();
         let btnTabMonth = $(".btnTabMonth.active").text();
@@ -1705,7 +1874,7 @@ $conn->close();
 
         $("#confirmBox2").hide();
         setTimeout(function () {
-            let x = confirm("Are you sure you want to carry forward?");
+            let x = confirm("Are you sure you want to carry forward for [" + btnTab + "] to the next month?");
 
             if (x == true) {
                 $(".overlayBG").show();
@@ -1750,10 +1919,98 @@ $conn->close();
             }
         }, 1000);
     }
+	
+	// Added By Hidayat 11/12/2022 9:03 PM
+	
+	/*function functionConfirm(msg, myYes, myNo) {
+		let btnTab = $(".btnTab.active").text();
+		var confirmBox = $("#confirm");
+		//let msg = "Are you sure you want to carry forward all rows with empty GP for user: " + btnTab + "?";
+		confirmBox.find(".message").text(msg);
+		confirmBox.find(".yes,.no").unbind().click(function() {
+		   confirmBox.hide();
+		});
+		confirmBox.find(".yes").click(myYes);
+		confirmBox.find(".no").click(myNo);
+		confirmBox.show();
+	}*/
+		 
+	// New Carry Forward All Function	 
+	function carryForwardConfirmAll(editableObj, column, id, numTable) {
+        //debugger;
+        let mainID = document.getElementById('mainID').value;
+        let btnTab = $(".btnTab.active").text();
+        let btnTabMonth = $(".btnTabMonth.active").text();
+        let trythis = (Number(numTable) + 1);
 
+        let RF = null;
+        let btmRow = document.getElementById("table-row-" + trythis);
+
+        if(btmRow !==null) {
+            let btmCells = btmRow.getElementsByTagName("td");
+
+            if (btmCells[3].innerText == 'R.F') {
+                RF = 'Yes';
+            } else {
+                RF = 'No';
+            }
+        } else {
+            RF = 'No';
+        }
+
+        $("#confirmBox3").hide();
+        setTimeout(function () {
+			
+            let x = confirm("Are you sure REALLY want to carry forward all rows with empty GP for [ " + btnTab + "] to the next month?");
+
+            if (x == true) {
+                $(".overlayBG").show();
+                $.ajax({
+                    type: 'POST',
+                    url: 'sale-process.php',	//Process the carry forward
+                    data: {	// Post the function for id, RF, btnTab and btnTabMonth to sale-process.php
+                        carryForwardAll: {id:id, RF:RF, btnTab:btnTab, btnTabMonth:btnTabMonth},
+                    },
+                    success: function (result) {
+                        $(".overlayBG").hide();
+                        if (result == 'Success') {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'sale-load-table.php', //Load all related table
+                                data: {
+                                    dataGrid: {mainID: mainID, tab: btnTab, month: btnTabMonth},
+                                },
+                                success: function (result) {
+                                    document.getElementById("loadSaleData").innerHTML = result;
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'sale-load-footer.php',
+                                        data: {
+                                            dataFooter: {
+                                                mainID: mainID,
+                                                tab: btnTab,
+                                                month: btnTabMonth
+                                            },
+                                        },
+                                        success: function (resultFooter) {
+                                            document.getElementById("loadFooterSale").innerHTML = resultFooter;
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            alert(result);
+                        }
+                    }
+                });
+            }
+        }, 1000);
+    }
+	
+	// Added by Hidayat ended
     function carryForwardLastRow(editableObj, column, id, numTable) {
         var userSess = '<?php echo $_SESSION['tk']['u_id'];?>';
-        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081') {
+        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081' || userSess == '1584566') {
             $(".tempRowAdd").remove();
             $(".tempRowAddRF").remove();
             $("#add-more").show();
@@ -1770,6 +2027,7 @@ $conn->close();
     }
 
     function doConfirmLastRow(msg, yesFn, cnFn) {
+		//debugger;
         var confirmBox = $("#confirmBoxLastRow");
 
         confirmBox.find(".message").text(msg);
@@ -1849,8 +2107,9 @@ $conn->close();
     }
 
     function carryForward(editableObj, column, id, numTable) {
+		//debugger;
         var userSess = '<?php echo $_SESSION['tk']['u_id'];?>';
-        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081') {
+        if (userSess == '1' || userSess == '3' || userSess == '8' || userSess == '1579926' || userSess == '1581081' || userSess == '1584566') {
             $(".tempRowAdd").remove();
             $(".tempRowAddRF").remove();
             $("#add-more").show();
@@ -2676,6 +2935,7 @@ $conn->close();
     }
 
     function addToDatabase() {
+		//debugger;
         var addRowBetween = 'No';
         var mainID = document.getElementById('mainID').value;
         var btnTab = $(".btnTab.active").text();
@@ -2797,7 +3057,7 @@ $conn->close();
         $("#add-more").hide();
         $(".tempRowAdd").remove();
 
-        $('.btnSaveEdit').addClass("hidden");
+        $('.btnSaveEdit').addClass("hidden"); 
         document.getElementById('duplicateBtn').innerHTML = '<span id="confirmAdd"><a onClick="addToDatabase()" class="ajax-action-links" style="color:#28A745"><b>Save</b></a> / <a onclick="cancelAdd();" class="ajax-action-links" style="color:#007BFF"><b>Cancel</b></a></span>';
 
 
@@ -3304,7 +3564,7 @@ $conn->close();
 
     function deleteRecordCF(id) {
         if (confirm("Are you sure you want to delete this row?")) {
-
+			//debugger;
             var mainID = document.getElementById('mainID').value;
             var btnTab = $(".btnTab.active").text();
             var btnTabMonth = $(".btnTabMonth.active").text();
@@ -3851,8 +4111,8 @@ $conn->close();
     function submitTab() {
         var mainID = document.getElementById('mainID').value;
         var Tabname = document.getElementById('TabInput').value;
-
-        if (mainID == '' && TabInput == '') {
+		// Bug due to condition error should be not identity to (!==) instead of is equal to (==).
+        if (mainID == '' && TabInput !== '') { 
             alert('Please insert name');
         } else {
             $.ajax({
@@ -3862,7 +4122,36 @@ $conn->close();
                     dataTabs: {mainID: mainID, Tabname: Tabname},
                 },
                 success: function (result) {
-                    if (result == "Success") {
+                    if (result.match(/*Success*/)) {
+						alert(result);
+                        document.getElementById('closeModal').click();
+                        setTimeout(function () {
+                            getSaleFile(mainID);
+                        }, 1000);
+                    } else {
+                        alert(result);
+                    }
+                }
+            });
+        }
+    }
+	
+	function submitTab2() {
+        var mainID = document.getElementById('mainID').value;
+        var Tabname = document.getElementById('TabInput2').value;
+		// Bug due to condition error should be not identity to (!==) instead of is equal to (==).
+        if (mainID == '' && TabInput !== '') { 
+            alert('Please insert name');
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: 'sale-process.php',
+                data: {
+                    dataTabs2: {mainID: mainID, Tabname: Tabname},
+                },
+                success: function (result) {
+                    if (result.match(/*Success*/)) {
+						alert(result);
                         document.getElementById('closeModal').click();
                         setTimeout(function () {
                             getSaleFile(mainID);
