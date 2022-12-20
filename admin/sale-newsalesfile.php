@@ -31,9 +31,7 @@ if ($resultCTN->num_rows > 0) {	//Check The resultCTN id row number
 	$currentYear = date("Y");	//2022
 	$currentMonth = date("m");	//12
 	$futureYear = $currentYear + 1; //2023
-	//$tabName = $rowCTN['tabName'];
-	//var_dump($currentMonth);
-	//var_dump($nameArr);
+
 }
 
 // Insert New Sales File Year if not exist
@@ -43,14 +41,6 @@ if ($maxYear === $currentYear && $currentMonth === "12" && $maxYear !== $futureY
 	$resultSF = $conn->query($sqlSalesFile);
 	
 }
-/*print("Sales File Name: ".$maxName);
-print("\nmax year: ".$maxYear);
-print("\nCurrent year: ".$currentYear);
-print("\ncurrent month: ".$currentMonth);
-print("\nfuture year: ".$futureYear);
-print("\nMax Main ID: ".$maxMainId);
-print("\nfuture Main ID: ".$futureMainId);*/
-//var_dump($resultSF);
 
 // ---- Section to add tabName to next year ---
 // Sql to filter the latest tabName for latest user tab existing year to CF to next year
