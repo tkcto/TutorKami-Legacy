@@ -155,16 +155,28 @@ if ($_SESSION[DB_PREFIX]['u_first_name'] == 'temporary staff') {
                                 <input type="text" class="form-control" id="YearInput" aria-describedby="YearHelp" placeholder="eg : 2020" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                             </div>
                         </form>
+						<button onclick="submitFileName()" type="button" class="btn btn-rate">Create New Sales File</button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalFile">Close</button>
-                        <button onclick="submitFileName()" type="button" class="btn btn-rate">Submit</button>
+                    <div class="modal-footer">                       
+                        
+                    </div>
+					<div class="modal-body">
+					<div>
+					OR Copy Existing Sales File Tabs to New Sales File Tabs? <br />
+					</div>
+					<button onclick="submitCopyFileName()" type="button" class="btn btn-rate">Yes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalFile">No</button>
+					</div>
+					<div class="modal-footer">                       
+
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalFile">Close</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="wrapper wrapper-content animated fadeInRight">
+        <!-- Main Class Wrapper -->
+        <div class="wrapper wrapper-content animated fadeInRight"> 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
