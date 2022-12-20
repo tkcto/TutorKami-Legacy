@@ -173,7 +173,7 @@
       <div class="col-sm-12 fontsize" style="margin-left:-10px;margin-bottom:5px;">
            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp; Sat & Sun 10am-9pm 
       </div>
-  </div>-->
+  </div>
   <div class="centerAll">
       <div class="col-sm-12 fontsize" style="margin-left:-10px;margin-bottom:5px;">
         <a href="http://www.wasap.my/60122309743"><img src="https://www.tutorkami.com/images/whatsapp-logo.jpg" height="32" size="32"></a> 012-2309743 : Mon to Thu 9am-6pm 
@@ -185,6 +185,15 @@
       
       <div class="col-sm-12 fontsize" style="margin-left:-10px;margin-bottom:5px;">
            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp; Weekends 10am-9pm
+      </div>
+  </div> -->
+    <div class="centerAll">
+      <div class="col-sm-12 fontsize" style="margin-left:-10px;margin-bottom:5px;">
+        <a href="http://www.wasap.my/60122309743"><img src="https://www.tutorkami.com/images/whatsapp-logo.jpg" height="32" size="32"></a> 012-2309743 : Mon to Fri 9am-6pm
+      </div>
+      
+      <div class="col-sm-12 fontsize" style="margin-left:-10px;margin-bottom:5px;">
+        <a href="http://www.wasap.my/60196412395"><img src="https://www.tutorkami.com/images/whatsapp-logo.jpg" height="32" size="32"></a> 019-6412395 : Mon to Fri 12pm-9pm
       </div>
   </div>
   
