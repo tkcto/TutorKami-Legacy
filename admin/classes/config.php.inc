@@ -28,7 +28,7 @@ if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1' |
     define('HOSTNAME', 'localhost');
     define('DB_USER', 'tutorka1_live');
     define('DB_PASS', '_+11pj,oow.L');
-    define('DBNAME', 'tutorka1_tutorkami_db');
+    define('DBNAME', 'tutorka1_tutorkami_db2');
 
     # Data directory Root
     define('APP_ROOT', 'https://' . $_SERVER['SERVER_NAME'] . '/');
